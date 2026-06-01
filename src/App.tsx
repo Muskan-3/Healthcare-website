@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <AnimatePresence mode="wait">
-      <div className="relative min-h-screen overflow-hidden bg-[#04010D] text-white pt-20">
+      <div className="relative min-h-screen bg-[#04010D] text-white pt-20">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(139,61,255,0.2),_transparent_34%),radial-gradient(circle_at_top_right,_rgba(245,197,66,0.08),_transparent_22%),linear-gradient(180deg,_#04010D_0%,_#050214_56%,_#08031B_100%)]" />
         <div className="pointer-events-none absolute inset-0 lux-grid opacity-[0.16]" />
         <Navbar />
