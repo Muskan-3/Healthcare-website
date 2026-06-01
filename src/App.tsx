@@ -3,7 +3,6 @@ import { AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './sections/HeroSection';
 import { AboutSection } from './sections/AboutSection';
-import { Footer } from './components/Footer';
 import React, { Suspense, lazy } from 'react';
 
 const ServicesSection = lazy(() => import('./sections/ServicesSection').then((m) => ({ default: m.ServicesSection })));
@@ -43,7 +42,6 @@ const App = () => {
             <AppointmentSection />
           </Suspense>
         </main>
-        <Footer />
       </div>
     </AnimatePresence>
   );
