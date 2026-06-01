@@ -46,6 +46,18 @@ export const AboutSection = () => {
           className="grid gap-4"
         >
           <div className="glass rounded-[30px] p-7">
+            <p className="text-xs uppercase tracking-[0.5em] text-gold/80">Doctor</p>
+            <h3 className="mt-4 font-display text-2xl font-semibold text-white">Dr. Reema Shukla</h3>
+            <p className="mt-1 text-sm text-white/75">Director</p>
+            <p className="mt-4 text-sm leading-7 text-white/70">
+              Dr. Reema Shukla leads the clinical team with a focus on advanced dental care, maxillofacial surgery, and aesthetic treatments. She prioritizes evidence-based, patient-centered care and long-term outcomes.
+            </p>
+            <div className="mt-4 space-y-2 text-sm text-white/75">
+              <p>Phone: <a href="tel:9956967000" className="text-white">9956967000</a></p>
+              <p>Email: <a href="mailto:drreemashukla10@gmail.com" className="text-white">drreemashukla10@gmail.com</a></p>
+            </div>
+          </div>
+          <div className="glass rounded-[30px] p-7">
             <p className="text-xs uppercase tracking-[0.5em] text-gold/80">Clinic Details</p>
             <div className="mt-4 space-y-3 text-sm leading-7 text-white/75">
               <p>66A/2C, Ward No 25, Stanley Road, Prayagraj 211002</p>

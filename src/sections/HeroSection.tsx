@@ -38,7 +38,7 @@ export const HeroSection = () => {
           className="relative z-10 max-w-2xl"
         >
           <p className="mb-6 text-sm font-medium uppercase tracking-[0.65em] text-[#FFD86B] sm:text-[13px]">Trusted excellence in healthcare</p>
-          <h1 className="hero-title neon-text font-luxury text-[4.6rem] sm:text-[5.2rem] lg:text-[5.8rem] font-semibold leading-[0.92] text-white">
+          <h1 className="hero-title neon-text font-luxury text-3xl sm:text-4xl md:text-5xl lg:text-[5.8rem] font-semibold leading-tight md:leading-[0.95] text-white">
             Savitri Dental
             <br />
             Hospital <span className="text-white/90">&amp;</span>
@@ -47,7 +47,7 @@ export const HeroSection = () => {
             <br />
             <span className="bg-gradient-to-b from-[#FFD86B] via-[#F5C542] to-[#F5C542] bg-clip-text text-transparent">Centre</span>
           </h1>
-          <p className="mt-6 text-base font-medium text-white/84 sm:text-lg">
+          <p className="mt-6 text-base font-medium text-white/84 sm:text-lg hidden md:block">
             By Dr. Reema Shukla <span className="text-[#F5C542]">- Director</span>
           </p>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/70 sm:text-lg">
@@ -55,7 +55,7 @@ export const HeroSection = () => {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <MagneticButton className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#F5C542] to-[#FFD86B] px-7 py-4 text-sm font-semibold text-[#04010D] shadow-xl shadow-[rgba(245,197,66,0.24)] transition hover:scale-[1.02]" onClick={() => (location.href = '#appointment')}>
+            <MagneticButton className="hidden md:inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#F5C542] to-[#FFD86B] px-7 py-4 text-sm font-semibold text-[#04010D] shadow-xl shadow-[rgba(245,197,66,0.24)] transition hover:scale-[1.02]" onClick={() => (location.href = '#appointment')}>
               Book a Consultation
               <ArrowRight size={16} />
             </MagneticButton>
@@ -115,7 +115,7 @@ export const HeroSection = () => {
             </svg>
           </div>
 
-          <div className="absolute right-0 bottom-6 translate-x-6">
+          <div className="hidden md:block absolute right-0 bottom-6 translate-x-6">
             <div className="px-6 py-3 rounded-full bg-[rgba(4,1,13,0.64)] border border-[rgba(255,216,107,0.36)] shadow-[0_12px_40px_rgba(4,1,13,0.6)]">
               <p className="font-luxury text-2xl italic text-[#FFD86B]">Dr. Reema Shukla</p>
               <p className="mt-1 text-[10px] uppercase tracking-[0.55em] text-white/80">Director</p>
@@ -129,6 +129,7 @@ export const HeroSection = () => {
       <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#050214] to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#F5C542]/45 to-transparent" />
       <div className="absolute left-0 right-0 top-[30%] h-px bg-gradient-to-r from-transparent via-white/14 to-transparent animate-wave" />
+        {/* Mobile doctor's-name pill removed per request */}
     </section>
   );
 };

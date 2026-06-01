@@ -13,10 +13,10 @@ export const TreatmentCard = ({ name, image, benefits, price }: TreatmentCardPro
     <motion.article
       whileHover={{ y: -10 }}
       transition={{ type: 'spring', stiffness: 200, damping: 18 }}
-      className="group overflow-hidden rounded-[30px] border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/35 backdrop-blur-xl"
+      className="group overflow-hidden rounded-[20px] sm:rounded-[30px] border border-white/10 bg-white/[0.04] shadow-2xl shadow-black/35 backdrop-blur-xl"
     >
-      <div className="relative h-56 overflow-hidden">
-        <LazyImage src={image} alt={name} className="h-full w-full" />
+        <div className="relative h-44 sm:h-56 overflow-hidden">
+          <LazyImage src={image} alt={name} className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050214] via-[#050214]/12 to-transparent" />
         <span className="absolute left-4 top-4 rounded-full border border-gold/30 bg-black/40 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-gold">
           {price}
