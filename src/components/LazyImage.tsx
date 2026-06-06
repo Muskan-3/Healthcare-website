@@ -15,6 +15,8 @@ export const LazyImage = memo(({ src, alt = '', className = '', ...rest }: Props
         srcSet={`${url600} 600w, ${url1200} 1200w`}
         sizes="(max-width: 768px) 100vw, 600px"
         alt={alt}
+        width={rest.width ?? 1200}
+        height={rest.height ?? 900}
         onLoad={() => setLoaded(true)}
         decoding="async"
         loading="lazy"

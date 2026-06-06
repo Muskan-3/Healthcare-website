@@ -57,11 +57,11 @@ export const AboutSection = () => {
               <p>Email: <a href="mailto:drreemashukla10@gmail.com" className="text-white hover:text-gold transition-colors">drreemashukla10@gmail.com</a></p>
             </div>
             <div className="mt-6 flex items-center gap-5">
-              <a href="https://wa.me/919956967000" target="_blank" rel="noreferrer" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)]">
-                <img src="/whatsapp.png" alt="WhatsApp" className="w-full h-full object-cover rounded-full" />
+              <a href="https://wa.me/919956967000" target="_blank" rel="noopener noreferrer" aria-label="Contact Dr. Reema on WhatsApp" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#04010D]">
+                <img src="/whatsapp.png" alt="WhatsApp" className="w-full h-full object-cover rounded-full" width="56" height="56" loading="lazy" decoding="async" />
               </a>
-              <a href="https://www.instagram.com/drreemashukla/" target="_blank" rel="noreferrer" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)]">
-                <img src="/instagram.png" alt="Instagram" className="w-full h-full object-cover rounded-full" />
+              <a href="https://www.instagram.com/drreemashukla/" target="_blank" rel="noopener noreferrer" aria-label="Follow Dr. Reema on Instagram" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#04010D]">
+                <img src="/instagram.png" alt="Instagram" className="w-full h-full object-cover rounded-full" width="56" height="56" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>

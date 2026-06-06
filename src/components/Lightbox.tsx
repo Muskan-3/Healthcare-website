@@ -27,7 +27,7 @@ export const Lightbox = ({ open, title, image, onClose }: LightboxProps) => {
             className="relative w-full max-w-5xl overflow-hidden rounded-[32px] border border-white/10 bg-[#0D0524] shadow-2xl shadow-black/60"
             onClick={(event) => event.stopPropagation()}
           >
-            <button onClick={onClose} className="absolute right-4 top-4 rounded-full border border-white/10 bg-black/40 p-2 text-white transition hover:text-gold">
+            <button type="button" aria-label="Close image preview" onClick={onClose} className="absolute right-4 top-4 rounded-full border border-white/10 bg-black/40 p-2 text-white transition hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0524]">
               <X size={18} />
             </button>
             {image && <img src={image} alt={title ?? 'Gallery item'} className="max-h-[80vh] w-full object-cover" />}

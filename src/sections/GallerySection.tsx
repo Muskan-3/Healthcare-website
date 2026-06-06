@@ -1,12 +1,21 @@
-import { useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { galleryItems } from '../data/siteData';
 import { Lightbox } from '../components/Lightbox';
 import LazyImage from '../components/LazyImage';
 
-export const GallerySection = () => {
+const galleryAspectClasses = ['aspect-[4/5]', 'aspect-square', 'aspect-[5/6]', 'aspect-[4/5]', 'aspect-square', 'aspect-[5/6]'] as const;
+
+export const GallerySection = memo(() => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const activeItem = useMemo(
+    () => (activeIndex !== null ? galleryItems[activeIndex] : undefined),
+    [activeIndex],
+  );
+
+  const openItem = useCallback((index: number) => setActiveIndex(index), []);
+  const closeItem = useCallback(() => setActiveIndex(null), []);
 
   return (
     <section id="gallery" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
@@ -20,12 +29,14 @@ export const GallerySection = () => {
         {galleryItems.map((item, index) => (
           <motion.button
             key={item.title}
+            type="button"
+            aria-label={`Open gallery image: ${item.title}`}
             whileHover={{ scale: 1.02 }}
-            onClick={() => setActiveIndex(index)}
+            onClick={() => openItem(index)}
             className="group relative block w-full overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] text-left shadow-2xl shadow-black/35"
           >
             <div className="h-auto w-full">
-              <LazyImage src={item.image} alt={item.title} />
+              <LazyImage src={item.image} alt={item.title} className={galleryAspectClasses[index % galleryAspectClasses.length]} />
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-[#050214]/90 via-[#050214]/10 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-5 text-white">
@@ -38,10 +49,10 @@ export const GallerySection = () => {
 
       <Lightbox
         open={activeIndex !== null}
-        title={activeIndex !== null ? galleryItems[activeIndex].title : undefined}
-        image={activeIndex !== null ? galleryItems[activeIndex].image : undefined}
-        onClose={() => setActiveIndex(null)}
+        title={activeItem?.title}
+        image={activeItem?.image}
+        onClose={closeItem}
       />
     </section>
   );
-};
+});

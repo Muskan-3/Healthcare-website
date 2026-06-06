@@ -11,19 +11,19 @@ export const Footer = () => {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
                 <div className="relative w-14 h-14 rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] overflow-hidden flex items-center justify-center bg-[#050214]">
-                  <img src="/Glow-savitri-logo.webp" alt="Savitri" className="w-full h-full object-cover scale-[1.2]" />
+                  <img src="/Glow-savitri-logo.webp" alt="Savitri" className="w-full h-full object-cover scale-[1.2]" width="56" height="56" loading="lazy" decoding="async" />
                 </div>
                 <div className="relative w-14 h-14 rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] overflow-hidden flex items-center justify-center bg-[#050214]">
-                  <img src="/SDH-logo.webp" alt="SDH" className="w-full h-full object-cover" />
+                  <img src="/SDH-logo.webp" alt="SDH" className="w-full h-full object-cover" width="56" height="56" loading="lazy" decoding="async" />
                 </div>
               </div>
             </div>
             <p className="text-sm text-white/70">Savitri Dental Hospital &amp; Maxillofacial Centre — premium dental, surgical and aesthetic care with a focus on clinical excellence and patient comfort.</p>
             <div className="flex items-center gap-3 mt-3">
-              <a href="tel:9956967000" className="inline-flex items-center gap-2 text-sm text-white/90 hover:text-gold">
+              <a href="tel:9956967000" className="inline-flex items-center gap-2 text-sm text-white/90 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
                 <Phone size={16} /> 9956967000
               </a>
-              <a href="mailto:drreemashukla10@gmail.com" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white">
+              <a href="mailto:drreemashukla10@gmail.com" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
                 <Mail size={16} /> drreemashukla10@gmail.com
               </a>
             </div>
@@ -54,16 +54,21 @@ export const Footer = () => {
             <h4 className="font-semibold text-white">Join Our Newsletter</h4>
             <p className="mt-3 text-sm text-white/70">Receive updates on new treatments and special offers.</p>
             <form onSubmit={(e) => e.preventDefault()} className="mt-4 flex gap-2">
-              <input type="email" placeholder="Email address" className="flex-1 rounded-lg bg-[#0b0720] border border-white/6 px-4 py-2 text-sm text-white placeholder:text-white/40 focus:outline-none" />
-              <button className="rounded-lg bg-gradient-to-r from-[#F5C542] to-[#FFD86B] px-4 py-2 text-sm font-semibold text-black">Subscribe</button>
+              <label htmlFor="newsletter-email" className="sr-only">
+                Email address
+              </label>
+              <input id="newsletter-email" type="email" placeholder="Email address" className="flex-1 rounded-lg bg-[#0b0720] border border-white/10 px-4 py-2 text-sm text-white placeholder:text-white/45 focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/30" />
+              <button type="submit" className="rounded-lg bg-gradient-to-r from-[#F5C542] to-[#FFD86B] px-4 py-2 text-sm font-semibold text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
+                Subscribe
+              </button>
             </form>
 
             <div className="mt-6 flex items-center gap-5">
-              <a href="https://wa.me/919956967000" target="_blank" rel="noreferrer" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)]">
-                <img src="/whatsapp.png" alt="WhatsApp" className="w-full h-full object-cover rounded-full" />
+              <a href="https://wa.me/919956967000" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
+                <img src="/whatsapp.png" alt="WhatsApp" className="w-full h-full object-cover rounded-full" width="56" height="56" loading="lazy" decoding="async" />
               </a>
-              <a href="https://www.instagram.com/drreemashukla/" target="_blank" rel="noreferrer" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)]">
-                <img src="/instagram.png" alt="Instagram" className="w-full h-full object-cover rounded-full" />
+              <a href="https://www.instagram.com/drreemashukla/" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
+                <img src="/instagram.png" alt="Instagram" className="w-full h-full object-cover rounded-full" width="56" height="56" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>

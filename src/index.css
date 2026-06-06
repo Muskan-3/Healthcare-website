@@ -38,6 +38,7 @@ body {
 .glass {
   background: linear-gradient(165deg, rgba(8, 3, 27, 0.82), rgba(5, 2, 20, 0.74));
   border: 1px solid rgba(192, 132, 252, 0.2);
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -46,7 +47,7 @@ body {
 }
 
 .hero-title {
-  text-wrap: balance;
+  overflow-wrap: anywhere;
   text-shadow: 0 0 24px rgba(139, 61, 255, 0.35);
 }
 
@@ -199,6 +200,7 @@ body {
 
   /* Reduce glass blur on mobile — significant GPU savings */
   .glass {
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
 
@@ -222,7 +224,7 @@ body {
 @media (max-width: 440px) {
   .hero-blob { right: -6%; width: 140%; top: 8%; }
   .hero-blob-figure { max-width: 360px; }
-  .hero-title { text-wrap: balance; }
+  .hero-title { overflow-wrap: anywhere; }
 }
 
 /* Disable all animations for users with motion sensitivity */
