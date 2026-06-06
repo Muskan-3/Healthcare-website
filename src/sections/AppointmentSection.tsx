@@ -1,8 +1,8 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, memo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 
-export const AppointmentSection = () => {
+export const AppointmentSection = memo(() => {
   const [form, setForm] = useState({ name: '', phone: '', email: '', treatment: '', message: '' });
 
   const submit = (event: FormEvent) => {
@@ -21,13 +21,14 @@ export const AppointmentSection = () => {
         description="The final conversion point stays visually aligned with the rest of the site and routes quickly into a direct contact action."
       />
 
+      {/* backdrop-blur-xl removed — glass bg and border retained for premium look */}
       <motion.form
         onSubmit={submit}
-        initial={{ opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 0.65 }}
-        className="mx-auto mt-14 grid max-w-4xl gap-4 rounded-[32px] border border-white/10 bg-white/[0.05] p-6 shadow-2xl shadow-black/35 backdrop-blur-xl sm:p-8"
+        transition={{ duration: 0.6 }}
+        className="mx-auto mt-14 grid max-w-4xl gap-4 rounded-[32px] border border-white/10 bg-white/[0.05] p-6 shadow-xl shadow-black/35 sm:p-8"
       >
         {[
           { name: 'name', placeholder: 'Name' },
@@ -63,4 +64,4 @@ export const AppointmentSection = () => {
       </motion.form>
     </section>
   );
-};
+});

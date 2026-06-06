@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Phone, CalendarDays, Menu, X } from 'lucide-react';
 import { navLinks } from '../data/siteData';
 import glowLogo from '../../src/Glow savitri logo.svg';
 import sdhLogo from '../../src/SDH logo.svg';
 
-export const Navbar = () => {
+export const Navbar = memo(() => {
   const [isSticky, setIsSticky] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -32,14 +32,15 @@ export const Navbar = () => {
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 h-20 border-b border-white/10 bg-[#050214]/80 transition-shadow duration-200 ${isSticky ? 'backdrop-blur-xl shadow-xl' : 'backdrop-blur-lg'}`}>
+    // backdrop-blur reduced: xl (24px) → md (12px) on sticky, lg (16px) → sm (8px) default
+    <header className={`fixed top-0 left-0 right-0 z-50 h-20 border-b border-white/10 bg-[#050214]/80 transition-shadow duration-200 ${isSticky ? 'backdrop-blur-md shadow-lg' : 'backdrop-blur-sm'}`}>
       <div className="mx-auto max-w-7xl h-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-full gap-6">
-          {/* Left: Logos (grouped) */}
+          {/* Left: Logos */}
           <div className="flex items-center gap-4">
             <a href="#home" onClick={(e) => scrollToAnchor(e, '#home')} className="flex items-center gap-3">
-              <img src={glowLogo} alt="Savitri" className="nav-logo-glow" />
-              <img src={sdhLogo} alt="SDH" className="nav-logo-sdh" />
+              <img src={glowLogo} alt="Savitri" className="nav-logo-glow" loading="eager" />
+              <img src={sdhLogo} alt="SDH" className="nav-logo-sdh" loading="eager" />
               <div className="hidden sm:block ml-2">
                 <p className="font-display text-lg font-bold tracking-wide text-white">Savitri</p>
                 <p className="text-[11px] uppercase tracking-[0.4em] text-white/55">Luxury Healthcare</p>
@@ -47,7 +48,7 @@ export const Navbar = () => {
             </a>
           </div>
 
-          {/* Center: Nav expands to fill available space */}
+          {/* Center: Nav */}
           <nav className="hidden md:flex flex-1 justify-center items-center gap-8 text-sm text-white/80">
             {navLinks.map((item) => (
               <a key={item.label} href={item.href} onClick={(e) => scrollToAnchor(e, item.href)} className="px-2 transition hover:text-gold">
@@ -56,9 +57,9 @@ export const Navbar = () => {
             ))}
           </nav>
 
-          {/* Right: Actions (stay to right) */}
+          {/* Right: Actions */}
           <div className="flex items-center gap-3 ml-auto">
-            {/* Mobile hamburger (premium glass button placed at right) */}
+            {/* Mobile hamburger */}
             <button
               aria-label="Toggle menu"
               aria-expanded={open}
@@ -95,7 +96,6 @@ export const Navbar = () => {
                 <img src={glowLogo} alt="Savitri" className="h-10 w-auto object-contain" />
                 <img src={sdhLogo} alt="SDH" className="h-10 w-auto object-contain" />
               </div>
-
               <button aria-label="Close menu" onClick={() => setOpen(false)} className="p-2 rounded-full hover:bg-white/10 transition-colors">
                 <X size={20} />
               </button>
@@ -122,4 +122,4 @@ export const Navbar = () => {
       </div>
     </header>
   );
-};
+});

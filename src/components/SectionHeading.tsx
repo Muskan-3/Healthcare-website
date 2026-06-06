@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 
 type SectionHeadingProps = {
@@ -6,13 +7,14 @@ type SectionHeadingProps = {
   description: string;
 };
 
-export const SectionHeading = ({ eyebrow, title, description }: SectionHeadingProps) => {
+// Removed filter:blur() from animation — CSS filters on scroll trigger GPU repaints.
+export const SectionHeading = memo(({ eyebrow, title, description }: SectionHeadingProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24, filter: 'blur(8px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.5 }}
-      transition={{ duration: 0.75, ease: 'easeOut' }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
       className="mx-auto max-w-3xl text-center"
     >
       <p className="mb-3 text-xs font-semibold uppercase tracking-[0.5em] text-gold/80">{eyebrow}</p>
@@ -20,4 +22,4 @@ export const SectionHeading = ({ eyebrow, title, description }: SectionHeadingPr
       <p className="mt-4 text-sm leading-7 text-white/70 sm:text-base">{description}</p>
     </motion.div>
   );
-};
+});

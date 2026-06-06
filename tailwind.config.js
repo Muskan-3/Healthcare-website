@@ -23,36 +23,8 @@ export default {
         body: ['Inter', 'sans-serif'],
         sans: ['Outfit', 'Inter', 'sans-serif'],
       },
-      keyframes: {
-        floaty: {
-          '0%, 100%': { transform: 'translate3d(0, 0, 0)' },
-          '50%': { transform: 'translate3d(0, -14px, 0)' },
-        },
-        drift: {
-          '0%': { transform: 'translate3d(0, 0, 0) scale(1)' },
-          '50%': { transform: 'translate3d(28px, -24px, 0) scale(1.1)' },
-          '100%': { transform: 'translate3d(0, 0, 0) scale(1)' },
-        },
-        shimmer: {
-          '0%': { backgroundPosition: '-200% 0' },
-          '100%': { backgroundPosition: '200% 0' },
-        },
-        wave: {
-          '0%, 100%': { transform: 'translateX(0)' },
-          '50%': { transform: 'translateX(-24px)' },
-        },
-        pulseGlow: {
-          '0%, 100%': { opacity: '0.45', transform: 'scale(1)' },
-          '50%': { opacity: '0.85', transform: 'scale(1.08)' },
-        },
-      },
-      animation: {
-        floaty: 'floaty 7s ease-in-out infinite',
-        drift: 'drift 14s ease-in-out infinite',
-        shimmer: 'shimmer 6s linear infinite',
-        wave: 'wave 12s ease-in-out infinite',
-        pulseGlow: 'pulseGlow 5s ease-in-out infinite',
-      },
+      // All unused animation keyframes removed (drift, shimmer, wave, floaty, pulseGlow)
+      // to reduce unused CSS in the bundle.
     },
   },
   plugins: [],

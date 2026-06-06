@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 type Props = React.ImgHTMLAttributes<HTMLImageElement> & { src: string };
 
-export const LazyImage = ({ src, alt = '', className = '', ...rest }: Props) => {
+export const LazyImage = memo(({ src, alt = '', className = '', ...rest }: Props) => {
   const [loaded, setLoaded] = useState(false);
 
   const url600 = src.includes('?') ? `${src}&w=600` : `${src}?w=600`;
@@ -16,13 +16,14 @@ export const LazyImage = ({ src, alt = '', className = '', ...rest }: Props) => 
         sizes="(max-width: 768px) 100vw, 600px"
         alt={alt}
         onLoad={() => setLoaded(true)}
-        className={`w-full h-full object-cover transition duration-700 ${loaded ? 'opacity-100' : 'opacity-0 scale-105'}`}
+        decoding="async"
         loading="lazy"
+        className={`w-full h-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         {...rest}
       />
-      {!loaded && <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#0b0420] via-[#1a0733] to-[#0b0420]" />}
+      {!loaded && <div className="absolute inset-0 bg-[#0b0420]" />}
     </div>
   );
-};
+});
 
 export default LazyImage;

@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import useMagnetic from '../hooks/useMagnetic';
 
 type Props = {
   children: ReactNode;
@@ -7,12 +6,12 @@ type Props = {
   onClick?: () => void;
 };
 
-export const MagneticButton = ({ children, className = '', onClick }: Props) => {
-  const ref = useMagnetic(26);
+// Magnetic mouse-tracking removed for performance. Uses CSS hover scale instead.
+const MagneticButton = ({ children, className = '', onClick }: Props) => (
+  <button onClick={onClick} className={className}>
+    {children}
+  </button>
+);
 
-  return (
-    <button ref={ref} onClick={onClick} className={`magnetic ${className}`}>{children}</button>
-  );
-};
-
+export { MagneticButton };
 export default MagneticButton;
