@@ -19,9 +19,6 @@ export const TreatmentCard = memo(({ name, image, benefits, price }: TreatmentCa
       <div className="relative h-44 sm:h-56 overflow-hidden">
         <LazyImage src={image} alt={name} className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050214] via-[#050214]/12 to-transparent" />
-        <span className="absolute left-4 top-4 rounded-full border border-gold/30 bg-black/40 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-gold">
-          {price}
-        </span>
       </div>
       <div className="p-6">
         <h3 className="font-display text-2xl font-semibold text-white">{name}</h3>
