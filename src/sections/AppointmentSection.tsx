@@ -37,12 +37,16 @@ export const AppointmentSection = memo(() => {
     treatment: '',
     message: '',
   });
+  const [submitError, setSubmitError] = useState('');
 
   const submit = (event: FormEvent) => {
     event.preventDefault();
     if (!form.treatmentCategory || !form.treatment) {
+      setSubmitError('Please select both a treatment category and treatment to continue.');
       return;
     }
+
+    setSubmitError('');
 
     const text = encodeURIComponent(
       [
@@ -55,7 +59,7 @@ export const AppointmentSection = memo(() => {
         `Message: ${form.message}`,
       ].join('%0A'),
     );
-    window.open(`https://wa.me/919956967000?text=${text}`, '_blank', 'noopener,noreferrer');
+    window.location.assign(`https://wa.me/919956967000?text=${text}`);
   };
 
   const selectedTreatmentOptions = form.treatmentCategory
@@ -90,7 +94,10 @@ export const AppointmentSection = memo(() => {
             type={field.type}
             placeholder={field.placeholder}
             value={form[field.name as keyof typeof form]}
-            onChange={(event) => setForm((current) => ({ ...current, [field.name]: event.target.value }))}
+            onChange={(event) => {
+              setSubmitError('');
+              setForm((current) => ({ ...current, [field.name]: event.target.value }));
+            }}
             className="rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-white placeholder:text-white/45 outline-none transition focus:border-gold/50"
           />
         ))}
@@ -104,11 +111,14 @@ export const AppointmentSection = memo(() => {
             options={treatmentCategories}
             required
             onChange={(value) =>
-              setForm((current) => ({
-                ...current,
-                treatmentCategory: value,
-                treatment: '',
-              }))
+              setForm((current) => {
+                setSubmitError('');
+                return {
+                  ...current,
+                  treatmentCategory: value,
+                  treatment: '',
+                };
+              })
             }
           />
           <FormSelectField
@@ -120,16 +130,23 @@ export const AppointmentSection = memo(() => {
             options={selectedTreatmentOptions}
             required
             disabled={!form.treatmentCategory}
-            onChange={(value) => setForm((current) => ({ ...current, treatment: value }))}
+            onChange={(value) => {
+              setSubmitError('');
+              setForm((current) => ({ ...current, treatment: value }));
+            }}
           />
         </div>
         <textarea
           placeholder="Message"
           rows={5}
           value={form.message}
-          onChange={(event) => setForm((current) => ({ ...current, message: event.target.value }))}
+          onChange={(event) => {
+            setSubmitError('');
+            setForm((current) => ({ ...current, message: event.target.value }));
+          }}
           className="rounded-2xl border border-white/10 bg-black/20 px-4 py-4 text-white placeholder:text-white/45 outline-none transition focus:border-gold/50"
         />
+        {submitError ? <p className="text-sm text-[#FFD86B]" role="status" aria-live="polite">{submitError}</p> : null}
         <button
           type="submit"
           className="rounded-full bg-gradient-to-r from-gold to-luxe px-7 py-4 text-sm font-semibold text-black transition hover:scale-[1.01]"
