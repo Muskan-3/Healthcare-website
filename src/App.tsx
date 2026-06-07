@@ -12,6 +12,7 @@ const SkinTreatmentsSection = lazy(() => import('./sections/SkinTreatmentsSectio
 const GallerySection = lazy(() => import('./sections/GallerySection').then((m) => ({ default: m.GallerySection })));
 const AchievementsSection = lazy(() => import('./sections/AchievementsSection').then((m) => ({ default: m.AchievementsSection })));
 const TestimonialsSection = lazy(() => import('./sections/TestimonialsSection').then((m) => ({ default: m.TestimonialsSection })));
+const GoogleReviewSection = lazy(() => import('./sections/GoogleReviewSection').then((m) => ({ default: m.GoogleReviewSection })));
 const ClinicTourSection = lazy(() => import('./sections/ClinicTourSection').then((m) => ({ default: m.ClinicTourSection })));
 const FAQSection = lazy(() => import('./sections/FAQSection').then((m) => ({ default: m.FAQSection })));
 const AppointmentSection = lazy(() => import('./sections/AppointmentSection').then((m) => ({ default: m.AppointmentSection })));
@@ -48,6 +49,9 @@ const App = () => {
         </Suspense>
         <Suspense fallback={<SectionFallback />}>
           <TestimonialsSection />
+        </Suspense>
+        <Suspense fallback={<SectionFallback />}>
+          <GoogleReviewSection />
         </Suspense>
         <Suspense fallback={<SectionFallback />}>
           <ClinicTourSection />

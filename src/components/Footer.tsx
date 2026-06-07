@@ -1,84 +1,157 @@
 import React from 'react';
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, ExternalLink } from 'lucide-react';
 import { navLinks } from '../data/siteData';
 
 export const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
-    <footer id="contact" className="relative z-10 bg-[#030012] border-t border-white/6 text-white">
-      <div className="mx-auto max-w-7xl px-6 py-16">
-        <div className="grid grid-cols-1 gap-y-10 md:gap-x-8 lg:gap-x-16 md:grid-cols-2 lg:grid-cols-4 items-start">
-          <div className="space-y-4 px-4 lg:px-6">
+    <footer id="contact" className="relative z-10 bg-[#030012] border-t border-white/8 text-white">
+      {/* Top divider accent */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#F5C542]/40 to-transparent" />
+
+      <div className="mx-auto max-w-7xl px-6 py-14 lg:py-20">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-10 lg:gap-16">
+
+          {/* ── Column 1 : Brand ── */}
+          <div className="flex flex-col gap-5">
+            {/* Logos */}
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <div className="relative w-14 h-14 rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] overflow-hidden flex items-center justify-center bg-[#050214]">
-                  <img src="/Glow-savitri-logo.webp" alt="Savitri" className="w-full h-full object-cover scale-[1.2]" width="56" height="56" loading="lazy" decoding="async" />
-                </div>
-                <div className="relative w-14 h-14 rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] overflow-hidden flex items-center justify-center bg-[#050214]">
-                  <img src="/SDH-logo.webp" alt="SDH" className="w-full h-full object-cover" width="56" height="56" loading="lazy" decoding="async" />
-                </div>
+              <div className="relative w-14 h-14 rounded-full shadow-[0_0_18px_rgba(245,197,66,0.35)] overflow-hidden flex-shrink-0 bg-[#050214]">
+                <img
+                  src="/Glow-savitri-logo.webp"
+                  alt="Glow Savitri"
+                  className="w-full h-full object-cover scale-[1.2]"
+                  width={56} height={56}
+                  loading="lazy" decoding="async"
+                />
+              </div>
+              <div className="relative w-14 h-14 rounded-full shadow-[0_0_18px_rgba(245,197,66,0.25)] overflow-hidden flex-shrink-0 bg-[#050214]">
+                <img
+                  src="/SDH-logo.webp"
+                  alt="SDH"
+                  className="w-full h-full object-cover"
+                  width={56} height={56}
+                  loading="lazy" decoding="async"
+                />
               </div>
             </div>
-            <p className="text-sm text-white/70">Savitri Dental Hospital &amp; Maxillofacial Centre — premium dental, surgical and aesthetic care with a focus on clinical excellence and patient comfort.</p>
-            <div className="flex items-center gap-3 mt-3">
-              <a href="tel:9956967000" className="inline-flex items-center gap-2 text-sm text-white/90 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
-                <Phone size={16} /> 9956967000
+
+            {/* Tagline */}
+            <p className="text-sm leading-relaxed text-white/65 max-w-xs">
+              Savitri Dental Hospital &amp; Maxillofacial Centre — where clinical excellence meets luxury patient care.
+            </p>
+
+            {/* Social icons */}
+            <div className="flex items-center gap-4 pt-1">
+              <a
+                href="https://wa.me/919956967000"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="w-11 h-11 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]/70"
+              >
+                <img
+                  src="/whatsapp.png"
+                  alt="WhatsApp"
+                  className="w-full h-full object-cover"
+                  width={44} height={44}
+                  loading="lazy" decoding="async"
+                />
               </a>
-              <a href="mailto:drreemashukla10@gmail.com" className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
-                <Mail size={16} /> drreemashukla10@gmail.com
+              <a
+                href="https://www.instagram.com/drreemashukla/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-11 h-11 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]/70"
+              >
+                <img
+                  src="/instagram.png"
+                  alt="Instagram"
+                  className="w-full h-full object-cover"
+                  width={44} height={44}
+                  loading="lazy" decoding="async"
+                />
               </a>
             </div>
           </div>
 
-        <div className="pl-12 pr-4 lg:pl-24 lg:pr-6">
-          <h4 className="font-semibold text-white">Quick Links</h4>
-          <ul className="mt-4 space-y-2 text-sm text-white/75">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <a href={link.href} className="hover:text-white transition-colors">{link.label}</a>
+          {/* ── Column 2 : Quick Links ── */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-[#F5C542] mb-5">
+              Quick Links
+            </h4>
+            <ul className="space-y-3">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className="inline-flex items-center gap-1.5 text-sm text-white/65 hover:text-white transition-colors duration-200 group"
+                  >
+                    <span className="block w-1 h-1 rounded-full bg-[#F5C542]/50 group-hover:bg-[#F5C542] transition-colors duration-200" />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── Column 3 : Contact & Hours ── */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-[#F5C542] mb-5">
+              Get In Touch
+            </h4>
+            <ul className="space-y-4 text-sm text-white/65">
+              <li className="flex items-start gap-3">
+                <MapPin size={15} className="mt-0.5 flex-shrink-0 text-[#F5C542]/70" />
+                <span>66A/2C, Ward No 25, Stanley Road,<br />Prayagraj — 211002</span>
               </li>
-            ))}
-          </ul>
-        </div>
+              <li className="flex items-center gap-3">
+                <Clock size={15} className="flex-shrink-0 text-[#F5C542]/70" />
+                <span>Mon – Sat &nbsp;·&nbsp; 9:00 AM — 6:00 PM</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone size={15} className="flex-shrink-0 text-[#F5C542]/70" />
+                <a
+                  href="tel:9956967000"
+                  className="hover:text-white transition-colors duration-200"
+                >
+                  +91 99569 67000
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail size={15} className="flex-shrink-0 text-[#F5C542]/70" />
+                <a
+                  href="mailto:drreemashukla10@gmail.com"
+                  className="hover:text-white transition-colors duration-200 break-all"
+                >
+                  drreemashukla10@gmail.com
+                </a>
+              </li>
+            </ul>
 
-          <div className="px-4 lg:px-6">
-            <h4 className="font-semibold text-white">Clinic Details</h4>
-            <div className="mt-4 space-y-2 text-sm text-white/75">
-              <p>66A/2C, Ward No 25, Stanley Road, Prayagraj 211002</p>
-              <p>Mon - Sat: 9:00 AM — 6:00 PM</p>
-              <p>Phone: <a href="tel:9956967000" className="hover:text-white">9956967000</a></p>
-              <p>Email: <a href="mailto:drreemashukla10@gmail.com" className="hover:text-white">drreemashukla10@gmail.com</a></p>
-            </div>
-          </div>
-
-          <div className="px-4 lg:px-6">
-            <h4 className="font-semibold text-white">Join Our Newsletter</h4>
-            <p className="mt-3 text-sm text-white/70">Receive updates on new treatments and special offers.</p>
-            <form onSubmit={(e) => e.preventDefault()} className="mt-4 flex gap-2">
-              <label htmlFor="newsletter-email" className="sr-only">
-                Email address
-              </label>
-              <input id="newsletter-email" type="email" placeholder="Email address" className="flex-1 rounded-lg bg-[#0b0720] border border-white/10 px-4 py-2 text-sm text-white placeholder:text-white/45 focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/30" />
-              <button type="submit" className="rounded-lg bg-gradient-to-r from-[#F5C542] to-[#FFD86B] px-4 py-2 text-sm font-semibold text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
-                Subscribe
-              </button>
-            </form>
-
-            <div className="mt-6 flex items-center gap-5">
-              <a href="https://wa.me/919956967000" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
-                <img src="/whatsapp.png" alt="WhatsApp" className="w-full h-full object-cover rounded-full" width="56" height="56" loading="lazy" decoding="async" />
-              </a>
-              <a href="https://www.instagram.com/drreemashukla/" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="relative w-12 h-12 md:w-14 md:h-14 rounded-full transition-transform duration-300 hover:scale-110 shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#030012]">
-                <img src="/instagram.png" alt="Instagram" className="w-full h-full object-cover rounded-full" width="56" height="56" loading="lazy" decoding="async" />
-              </a>
-            </div>
+            {/* Book appointment CTA */}
+            <a
+              href="#appointment"
+              className="mt-7 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#F5C542] to-[#FFD86B] px-5 py-2.5 text-sm font-semibold text-black hover:brightness-110 transition-all duration-200 shadow-[0_4px_20px_rgba(245,197,66,0.25)]"
+            >
+              Book an Appointment
+              <ExternalLink size={14} />
+            </a>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-white/6 bg-[#02000a]">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex flex-col items-center justify-between gap-3 md:flex-row">
-          <p className="text-sm text-white/60">© {new Date().getFullYear()} Savitri Dental Hospital &amp; Maxillofacial Centre. All rights reserved.</p>
-          <p className="text-sm text-white/60">Designed with care • Privacy &amp; Terms</p>
+      {/* ── Bottom bar ── */}
+      <div className="border-t border-white/8 bg-[#02000a]">
+        <div className="mx-auto max-w-7xl px-6 py-4 flex flex-col items-center justify-between gap-2 md:flex-row">
+          <p className="text-xs text-white/45">
+            © {year} Savitri Dental Hospital &amp; Maxillofacial Centre. All rights reserved.
+          </p>
+          <p className="text-xs text-white/35">
+            Crafted with care for clinical excellence.
+          </p>
         </div>
       </div>
     </footer>
