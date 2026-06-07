@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { Lightbox } from '../components/Lightbox';
@@ -27,34 +27,53 @@ const galleryTitleMap: Record<string, string> = {
   'Copy of NZ8_1495.JPG': 'Savitri Dental & Maxillofacial Centre Exterior',
   'Copy of NZ8_1496.JPG': 'Contemporary Dental Procedure Bay',
   'sdh hosp 4.png': 'Signature Savitri Branding Wall',
-  'sdh hospital.png': 'Patient Hospitality Lounge',
   'sdh hospital 2.png': 'Contemporary Dental Operatory',
   'sdh hospital 3.png': 'Dental Treatment Bay',
   'sdh hospital out.png': 'Savitri Dental Façade View',
+  'sdh hospital.png': 'Patient Hospitality Lounge',
 };
 
-// Lazy glob — images are NOT bundled eagerly; each loads as a separate dynamic import
-const galleryImageModules = import.meta.glob('/public/Real-Images/*', {
-  eager: false,
-}) as Record<string, () => Promise<{ default: string }>>;
+const GALLERY_IMAGE_NAMES = [
+  'Copy of NZ8_1457.JPG',
+  'Copy of NZ8_1463.JPG',
+  'Copy of NZ8_1464.JPG',
+  'Copy of NZ8_1476.JPG',
+  'Copy of NZ8_1484.JPG',
+  'Copy of NZ8_1485.JPG',
+  'Copy of NZ8_1486.JPG',
+  'Copy of NZ8_1488.JPG',
+  'Copy of NZ8_1489.JPG',
+  'Copy of NZ8_1490.JPG',
+  'Copy of NZ8_1491.JPG',
+  'Copy of NZ8_1492.JPG',
+  'Copy of NZ8_1493.JPG',
+  'Copy of NZ8_1494.JPG',
+  'Copy of NZ8_1495.JPG',
+  'Copy of NZ8_1496.JPG',
+  'sdh hosp 4.png',
+  'sdh hospital 2.png',
+  'sdh hospital 3.png',
+  'sdh hospital out.png',
+  'sdh hospital.png',
+];
 
 type GalleryItem = { id: string; title: string; image: string };
 
-// Stable sorted module entries computed once at module scope (no re-sort on re-render)
-const sortedEntries = Object.entries(galleryImageModules).sort(([a], [b]) => a.localeCompare(b));
-
-function resolveTitle(path: string, index: number): string {
-  const fileName = path.split('/').pop() ?? '';
+const galleryItems: GalleryItem[] = GALLERY_IMAGE_NAMES.map((fileName, index) => {
   const mapped = galleryTitleMap[fileName];
-  if (mapped) return mapped;
-  const cleaned = fileName
+  const title = mapped || (fileName
     .replace(/\.[^.]+$/, '')
     .replace(/^copy of\s+/i, '')
     .replace(/[._-]+/g, ' ')
     .replace(/\s+/g, ' ')
-    .trim();
-  return cleaned || `Gallery Image ${index + 1}`;
-}
+    .trim()) || `Gallery Image ${index + 1}`;
+
+  return {
+    id: fileName,
+    title,
+    image: `/Real-Images/${fileName}`,
+  };
+});
 
 // Card component is memoized so Lightbox open/close doesn't re-render all cards
 const GalleryCard = memo(({
@@ -84,27 +103,9 @@ const GalleryCard = memo(({
 ));
 
 export const GallerySection = memo(() => {
-  const [items, setItems] = useState<GalleryItem[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const loadedRef = useRef(false);
 
-  // Load images lazily — triggered once when section mounts (already code-split by App.tsx)
-  useEffect(() => {
-    if (loadedRef.current) return;
-    loadedRef.current = true;
-
-    Promise.all(
-      sortedEntries.map(async ([path, load], index) => {
-        const mod = await load();
-        return { id: path, title: resolveTitle(path, index), image: mod.default };
-      })
-    ).then(setItems);
-  }, []);
-
-  const activeItem = useMemo(
-    () => (activeIndex !== null ? items[activeIndex] : undefined),
-    [activeIndex, items],
-  );
+  const activeItem = activeIndex !== null ? galleryItems[activeIndex] : undefined;
 
   const openItem = useCallback((index: number) => setActiveIndex(index), []);
   const closeItem = useCallback(() => setActiveIndex(null), []);
@@ -118,7 +119,7 @@ export const GallerySection = memo(() => {
       />
 
       <div className="mt-14 columns-1 gap-6 space-y-6 md:columns-2 xl:columns-3">
-        {items.map((item, index) => (
+        {galleryItems.map((item, index) => (
           <GalleryCard key={item.id} item={item} index={index} onClick={openItem} />
         ))}
       </div>
