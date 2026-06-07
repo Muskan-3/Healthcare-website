@@ -1,7 +1,7 @@
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
-const Stat = ({ end, label }: { end: number; label: string }) => {
+const Stat = memo(({ end, label }: { end: number; label: string }) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
   const value = useMotionValue(0);
@@ -20,9 +20,9 @@ const Stat = ({ end, label }: { end: number; label: string }) => {
       <p className="mt-3 text-sm uppercase tracking-[0.35em] text-white/65">{label}</p>
     </div>
   );
-};
+});
 
-export const AchievementsSection = () => {
+export const AchievementsSection = memo(() => {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <div className="grid gap-6 md:grid-cols-3">
@@ -32,4 +32,4 @@ export const AchievementsSection = () => {
       </div>
     </section>
   );
-};
+});

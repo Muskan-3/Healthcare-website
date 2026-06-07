@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 import { SectionHeading } from '../components/SectionHeading';
 import { testimonials } from '../data/siteData';
 
-export const TestimonialsSection = () => {
+export const TestimonialsSection = memo(() => {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
@@ -37,4 +38,4 @@ export const TestimonialsSection = () => {
       </div>
     </section>
   );
-};
+});

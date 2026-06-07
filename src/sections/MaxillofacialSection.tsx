@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Drill,
@@ -20,7 +21,7 @@ const SERVICE_ICONS = [
   Scissors,    // Oral oncology screening
 ];
 
-export const MaxillofacialSection = () => {
+export const MaxillofacialSection = memo(() => {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
@@ -58,4 +59,4 @@ export const MaxillofacialSection = () => {
       </div>
     </section>
   );
-};
+});

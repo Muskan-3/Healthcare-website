@@ -241,3 +241,32 @@ body {
 .mobile-menu-panel {
   transition: transform 280ms cubic-bezier(.2,.9,.25,1), opacity 200ms ease;
 }
+
+/* ── Performance: CSS Containment ──────────────────────────────────────────
+   The hero section contains the canvas particle system and neon blur filter.
+   'contain: layout paint' prevents those effects from triggering repaints
+   in sections below the fold. */
+#home {
+  contain: layout paint;
+}
+
+/* content-visibility:auto skips layout/paint for off-screen sections.
+   The browser renders them on demand when they scroll into view.
+   This gives a significant FCP/LCP improvement on mobile. */
+#about,
+#dental-services,
+#skin-treatments,
+#gallery,
+#google-review,
+#appointment {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Promote glass cards to their own compositor layer only on desktop.
+   On mobile this wastes GPU memory, so we skip it. */
+@media (min-width: 1024px) {
+  .glass {
+    transform: translateZ(0);
+  }
+}

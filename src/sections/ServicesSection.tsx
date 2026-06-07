@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Sparkles,
@@ -32,7 +33,7 @@ const SERVICE_ICONS: Record<string, LucideIcon> = {
   'TMJ Treatment':             Activity,        // joint activity
 };
 
-export const ServicesSection = () => {
+export const ServicesSection = memo(() => {
   return (
     <section id="dental-services" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
@@ -75,4 +76,4 @@ export const ServicesSection = () => {
       </div>
     </section>
   );
-};
+});

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Phone, Mail, MapPin, Clock, ExternalLink } from 'lucide-react';
 import { navLinks } from '../data/siteData';
 
-export const Footer = () => {
+export const Footer = memo(() => {
   const year = new Date().getFullYear();
 
   return (
@@ -156,4 +156,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+});

@@ -1,10 +1,13 @@
-import { memo, useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { Lightbox } from '../components/Lightbox';
 import LazyImage from '../components/LazyImage';
 
-const galleryAspectClasses = ['aspect-[4/5]', 'aspect-square', 'aspect-[5/6]', 'aspect-[4/5]', 'aspect-square', 'aspect-[5/6]'] as const;
+const galleryAspectClasses = [
+  'aspect-[4/5]', 'aspect-square', 'aspect-[5/6]',
+  'aspect-[4/5]', 'aspect-square', 'aspect-[5/6]',
+] as const;
 
 const galleryTitleMap: Record<string, string> = {
   'Copy of NZ8_1457.JPG': 'Advanced Laser Skin Treatment',
@@ -30,34 +33,77 @@ const galleryTitleMap: Record<string, string> = {
   'sdh hospital out.png': 'Savitri Dental Façade View',
 };
 
+// Lazy glob — images are NOT bundled eagerly; each loads as a separate dynamic import
 const galleryImageModules = import.meta.glob('/public/Real-Images/*', {
-  eager: true,
-  import: 'default',
-}) as Record<string, string>;
+  eager: false,
+}) as Record<string, () => Promise<{ default: string }>>;
 
-const galleryItems = Object.entries(galleryImageModules)
-  .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
-  .map(([path, image], index) => {
-    const fileName = path.split('/').pop() ?? `gallery-image-${index + 1}`;
-    const title = galleryTitleMap[fileName] ?? fileName
-      .replace(/\.[^.]+$/, '')
-      .replace(/^copy of\s+/i, '')
-      .replace(/[._-]+/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+type GalleryItem = { id: string; title: string; image: string };
 
-    return {
-      id: path,
-      title: title || `Gallery Image ${index + 1}`,
-      image,
-    };
-  });
+// Stable sorted module entries computed once at module scope (no re-sort on re-render)
+const sortedEntries = Object.entries(galleryImageModules).sort(([a], [b]) => a.localeCompare(b));
+
+function resolveTitle(path: string, index: number): string {
+  const fileName = path.split('/').pop() ?? '';
+  const mapped = galleryTitleMap[fileName];
+  if (mapped) return mapped;
+  const cleaned = fileName
+    .replace(/\.[^.]+$/, '')
+    .replace(/^copy of\s+/i, '')
+    .replace(/[._-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return cleaned || `Gallery Image ${index + 1}`;
+}
+
+// Card component is memoized so Lightbox open/close doesn't re-render all cards
+const GalleryCard = memo(({
+  item, index, onClick,
+}: { item: GalleryItem; index: number; onClick: (i: number) => void }) => (
+  <motion.button
+    type="button"
+    aria-label={`Open gallery image: ${item.title}`}
+    whileHover={{ scale: 1.02 }}
+    onClick={() => onClick(index)}
+    className="group relative block w-full overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] text-left shadow-2xl shadow-black/35 transform-gpu will-change-transform"
+  >
+    <div className="h-auto w-full">
+      <LazyImage
+        src={item.image}
+        alt={item.title}
+        priority={index < 3}
+        className={galleryAspectClasses[index % galleryAspectClasses.length]}
+      />
+    </div>
+    <div className="absolute inset-0 bg-gradient-to-t from-[#050214]/90 via-[#050214]/10 to-transparent" />
+    <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+      <p className="text-xs uppercase tracking-[0.45em] text-gold/80">Portfolio</p>
+      <h3 className="mt-2 font-display text-2xl font-semibold">{item.title}</h3>
+    </div>
+  </motion.button>
+));
 
 export const GallerySection = memo(() => {
+  const [items, setItems] = useState<GalleryItem[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const loadedRef = useRef(false);
+
+  // Load images lazily — triggered once when section mounts (already code-split by App.tsx)
+  useEffect(() => {
+    if (loadedRef.current) return;
+    loadedRef.current = true;
+
+    Promise.all(
+      sortedEntries.map(async ([path, load], index) => {
+        const mod = await load();
+        return { id: path, title: resolveTitle(path, index), image: mod.default };
+      })
+    ).then(setItems);
+  }, []);
+
   const activeItem = useMemo(
-    () => (activeIndex !== null ? galleryItems[activeIndex] : undefined),
-    [activeIndex],
+    () => (activeIndex !== null ? items[activeIndex] : undefined),
+    [activeIndex, items],
   );
 
   const openItem = useCallback((index: number) => setActiveIndex(index), []);
@@ -72,29 +118,8 @@ export const GallerySection = memo(() => {
       />
 
       <div className="mt-14 columns-1 gap-6 space-y-6 md:columns-2 xl:columns-3">
-        {galleryItems.map((item, index) => (
-          <motion.button
-            key={item.id}
-            type="button"
-            aria-label={`Open gallery image: ${item.title}`}
-            whileHover={{ scale: 1.02 }}
-            onClick={() => openItem(index)}
-            className="group relative block w-full overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] text-left shadow-2xl shadow-black/35 transform-gpu will-change-transform"
-          >
-            <div className="h-auto w-full">
-              <LazyImage
-                src={item.image}
-                alt={item.title}
-                priority={index < 3}
-                className={galleryAspectClasses[index % galleryAspectClasses.length]}
-              />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050214]/90 via-[#050214]/10 to-transparent" />
-            <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-              <p className="text-xs uppercase tracking-[0.45em] text-gold/80">Portfolio</p>
-              <h3 className="mt-2 font-display text-2xl font-semibold">{item.title}</h3>
-            </div>
-          </motion.button>
+        {items.map((item, index) => (
+          <GalleryCard key={item.id} item={item} index={index} onClick={openItem} />
         ))}
       </div>
 

@@ -1,4 +1,4 @@
-import { FormEvent, memo, useState } from 'react';
+import { FormEvent, memo, useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
 import { FormSelectField } from '../components/FormSelectField';
 import { SectionHeading } from '../components/SectionHeading';
@@ -28,26 +28,29 @@ const treatmentOptions = {
   ],
 } as const;
 
+// Stable module-level constant — no new array object created per render
+const TEXT_FIELDS = [
+  { name: 'name' as const, placeholder: 'Name', type: 'text' },
+  { name: 'phone' as const, placeholder: 'Phone', type: 'text' },
+  { name: 'email' as const, placeholder: 'Email', type: 'email' },
+];
+
+const INITIAL_FORM = {
+  name: '', phone: '', email: '',
+  treatmentCategory: '', treatment: '', message: '',
+};
+
 export const AppointmentSection = memo(() => {
-  const [form, setForm] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    treatmentCategory: '',
-    treatment: '',
-    message: '',
-  });
+  const [form, setForm] = useState(INITIAL_FORM);
   const [submitError, setSubmitError] = useState('');
 
-  const submit = (event: FormEvent) => {
+  const submit = useCallback((event: FormEvent) => {
     event.preventDefault();
     if (!form.treatmentCategory || !form.treatment) {
       setSubmitError('Please select both a treatment category and treatment to continue.');
       return;
     }
-
     setSubmitError('');
-
     const text = encodeURIComponent(
       [
         'Appointment request:',
@@ -60,7 +63,17 @@ export const AppointmentSection = memo(() => {
       ].join('%0A'),
     );
     window.location.assign(`https://wa.me/919956967000?text=${text}`);
-  };
+  }, [form]);
+
+  const handleCategoryChange = useCallback((value: string) => {
+    setSubmitError('');
+    setForm((current) => ({ ...current, treatmentCategory: value, treatment: '' }));
+  }, []);
+
+  const handleTreatmentChange = useCallback((value: string) => {
+    setSubmitError('');
+    setForm((current) => ({ ...current, treatment: value }));
+  }, []);
 
   const selectedTreatmentOptions = form.treatmentCategory
     ? treatmentOptions[form.treatmentCategory as keyof typeof treatmentOptions]
@@ -84,16 +97,12 @@ export const AppointmentSection = memo(() => {
         transition={{ duration: 0.6 }}
         className="mx-auto mt-14 grid max-w-4xl gap-4 rounded-[32px] border border-white/10 bg-white/[0.05] p-6 shadow-xl shadow-black/35 sm:p-8"
       >
-        {[
-          { name: 'name', placeholder: 'Name', type: 'text' },
-          { name: 'phone', placeholder: 'Phone', type: 'text' },
-          { name: 'email', placeholder: 'Email', type: 'email' },
-        ].map((field) => (
+        {TEXT_FIELDS.map((field) => (
           <input
             key={field.name}
             type={field.type}
             placeholder={field.placeholder}
-            value={form[field.name as keyof typeof form]}
+            value={form[field.name]}
             onChange={(event) => {
               setSubmitError('');
               setForm((current) => ({ ...current, [field.name]: event.target.value }));
@@ -110,16 +119,7 @@ export const AppointmentSection = memo(() => {
             placeholder="Select treatment category"
             options={treatmentCategories}
             required
-            onChange={(value) =>
-              setForm((current) => {
-                setSubmitError('');
-                return {
-                  ...current,
-                  treatmentCategory: value,
-                  treatment: '',
-                };
-              })
-            }
+            onChange={handleCategoryChange}
           />
           <FormSelectField
             id="treatment"
@@ -130,10 +130,7 @@ export const AppointmentSection = memo(() => {
             options={selectedTreatmentOptions}
             required
             disabled={!form.treatmentCategory}
-            onChange={(value) => {
-              setSubmitError('');
-              setForm((current) => ({ ...current, treatment: value }));
-            }}
+            onChange={handleTreatmentChange}
           />
         </div>
         <textarea

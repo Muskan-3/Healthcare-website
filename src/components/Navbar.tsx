@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useState } from 'react';
 import { Phone, CalendarDays, Menu, X } from 'lucide-react';
 import { navLinks } from '../data/siteData';
 
@@ -30,7 +30,7 @@ export const Navbar = memo(() => {
     };
   }, [open]);
 
-  const scrollToAnchor = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const scrollToAnchor = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (!href.startsWith('#')) return;
     e.preventDefault();
     setOpen(false);
@@ -44,7 +44,7 @@ export const Navbar = memo(() => {
     } else {
       window.location.href = href;
     }
-  };
+  }, []);
 
   return (
     // backdrop-blur reduced: xl (24px) → md (12px) on sticky, lg (16px) → sm (8px) default

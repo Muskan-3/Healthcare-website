@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Star, ExternalLink } from 'lucide-react';
 
 const REVIEW_URL = 'https://g.page/r/Cd5cEYsxkrbMEAE/review';
 
-export const GoogleReviewSection = () => {
+export const GoogleReviewSection = memo(() => {
   return (
     <section
       id="google-review"
@@ -69,4 +70,4 @@ export const GoogleReviewSection = () => {
       </motion.div>
     </section>
   );
-};
+});

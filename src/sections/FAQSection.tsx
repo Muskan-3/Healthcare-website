@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 import { faqs } from '../data/siteData';
 
-export const FAQSection = () => {
+export const FAQSection = memo(() => {
   return (
     <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
@@ -28,4 +29,4 @@ export const FAQSection = () => {
       </div>
     </section>
   );
-};
+});

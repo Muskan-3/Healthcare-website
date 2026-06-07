@@ -9,34 +9,48 @@ const PARTICLE_COLORS = [
   { inner: 'rgba(255,255,255,0.72)', mid: 'rgba(255,255,255,0.35)' },
 ];
 
+// Cap DPR at 1.5 — retina overkill costs 4× GPU fill rate for minimal visual gain
+const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+
 export const Particles = ({ count = 84 }: { count?: number }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
+  const pausedRef = useRef(false);
 
   useEffect(() => {
     const canvas = canvasRef.current!;
-    const ctx = canvas.getContext('2d')!;
+    const ctx = canvas.getContext('2d', { alpha: true })!;
 
-    let width = (canvas.width = canvas.clientWidth * devicePixelRatio);
-    let height = (canvas.height = canvas.clientHeight * devicePixelRatio);
-    ctx.scale(devicePixelRatio, devicePixelRatio);
+    // Reduce count on small/low-end screens
+    const effectiveCount = window.innerWidth < 768 ? Math.min(count, 28) : count;
 
-    const particles = Array.from({ length: count }).map(() => {
+    const resize = () => {
+      canvas.width = canvas.clientWidth * DPR;
+      canvas.height = canvas.clientHeight * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    };
+    resize();
+
+    const particles = Array.from({ length: effectiveCount }).map(() => {
       const color = PARTICLE_COLORS[Math.floor(random(0, PARTICLE_COLORS.length))];
       return {
-      x: random(0, canvas.clientWidth),
-      y: random(0, canvas.clientHeight),
-      r: random(0.6, 4.2),
-      vx: random(-0.22, 0.22),
-      vy: random(-0.06, -0.5),
-      alpha: random(0.12, 0.68),
-      inner: color.inner,
-      mid: color.mid,
-      glowScale: random(4.4, 8.6),
-    };
+        x: random(0, canvas.clientWidth),
+        y: random(0, canvas.clientHeight),
+        r: random(0.6, 4.2),
+        vx: random(-0.22, 0.22),
+        vy: random(-0.06, -0.5),
+        alpha: random(0.12, 0.68),
+        inner: color.inner,
+        mid: color.mid,
+        glowScale: random(4.4, 8.6),
+      };
     });
 
     const draw = () => {
+      if (pausedRef.current) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
       ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
       for (const p of particles) {
         p.x += p.vx;
@@ -59,17 +73,17 @@ export const Particles = ({ count = 84 }: { count?: number }) => {
 
     rafRef.current = requestAnimationFrame(draw);
 
-    const onResize = () => {
-      width = (canvas.width = canvas.clientWidth * devicePixelRatio);
-      height = (canvas.height = canvas.clientHeight * devicePixelRatio);
-      ctx.scale(devicePixelRatio, devicePixelRatio);
-    };
+    // Pause animation when tab is hidden — zero GPU cost when invisible
+    const onVisibility = () => { pausedRef.current = document.hidden; };
+    document.addEventListener('visibilitychange', onVisibility);
 
-    window.addEventListener('resize', onResize);
+    const onResize = () => resize();
+    window.addEventListener('resize', onResize, { passive: true });
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [count]);
 

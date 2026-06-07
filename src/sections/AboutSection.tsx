@@ -1,7 +1,14 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeading } from '../components/SectionHeading';
 
-export const AboutSection = () => {
+const PILLARS: [string, string][] = [
+  ['Precision', 'Digital-first treatment planning'],
+  ['Luxury', 'Hospital-grade comfort and privacy'],
+  ['Confidence', 'Results led by informed consent'],
+];
+
+export const AboutSection = memo(() => {
   return (
     <section id="about" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
@@ -25,11 +32,7 @@ export const AboutSection = () => {
           </p>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {[
-              ['Precision', 'Digital-first treatment planning'],
-              ['Luxury', 'Hospital-grade comfort and privacy'],
-              ['Confidence', 'Results led by informed consent'],
-            ].map(([title, text]) => (
+            {PILLARS.map(([title, text]) => (
               <div key={title} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
                 <h4 className="font-semibold text-white">{title}</h4>
                 <p className="mt-2 text-sm leading-6 text-white/65">{text}</p>
@@ -83,4 +86,4 @@ export const AboutSection = () => {
       </div>
     </section>
   );
-};
+});
