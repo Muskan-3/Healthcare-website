@@ -21,7 +21,10 @@ export const ClinicTourSection = memo(() => {
           className="glass overflow-hidden rounded-[30px]"
         >
           <div className="h-[420px] w-full">
-            <LazyImage src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80" alt="Clinic interior" />
+            <LazyImage
+            src="/Real-Images/Copy of NZ8_1488.JPG"
+            alt="Clinic interior"
+/>
           </div>
         </motion.div>
         <motion.div
