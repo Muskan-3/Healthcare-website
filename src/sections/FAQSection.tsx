@@ -8,8 +8,7 @@ export const FAQSection = memo(() => {
     <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="FAQ"
-        title="Questions answered with clarity and calm"
-        description="This section keeps the interface premium while making the practical booking journey simple."
+        title="Frequently Asked Questions"
       />
 
       <div className="mt-14 grid gap-5 lg:grid-cols-3">

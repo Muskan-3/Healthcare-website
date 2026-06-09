@@ -5,19 +5,20 @@ import LazyImage from './LazyImage';
 type TreatmentCardProps = {
   name: string;
   image: string;
+  imagePosition?: string;
   benefits: string[];
   price: string;
 };
 
-export const TreatmentCard = memo(({ name, image, benefits, price }: TreatmentCardProps) => {
+export const TreatmentCard = memo(({ name, image, imagePosition, benefits, price }: TreatmentCardProps) => {
   return (
     <motion.article
       whileHover={{ y: -4 }}
       transition={{ type: 'tween', duration: 0.2, ease: 'easeOut' }}
       className="group overflow-hidden rounded-[20px] sm:rounded-[30px] border border-white/10 bg-white/[0.04] shadow-xl shadow-black/35"
     >
-      <div className="relative h-44 sm:h-56 overflow-hidden">
-        <LazyImage src={image} alt={name} className="h-full w-full object-cover" />
+      <div className="relative h-56 sm:h-72 lg:h-80 overflow-hidden">
+        <LazyImage src={image} alt={name} className="h-full w-full object-cover" style={{ objectPosition: imagePosition ?? '50% 48%' }} />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050214] via-[#050214]/12 to-transparent" />
       </div>
       <div className="p-6">

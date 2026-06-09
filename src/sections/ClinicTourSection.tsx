@@ -8,8 +8,8 @@ export const ClinicTourSection = memo(() => {
     <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Clinic Tour"
-        title="A cinematic glimpse into the interior atmosphere"
-        description="The space is represented with layered visual cards, helping the website feel like a premium brand destination rather than a standard medical site."
+        title="Inside Savitri Luxury Healthcare"
+        description="Step inside a thoughtfully designed environment where comfort, sophistication, and advanced care come together."
       />
 
       <div className="mt-14 grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">

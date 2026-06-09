@@ -38,8 +38,8 @@ export const ServicesSection = memo(() => {
     <section id="dental-services" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Services"
-        title="Dental & Maxillofacial services designed with a luxury brand language"
-        description="The service presentation is intentionally premium, with glass cards, glowing borders, and cinematic depth that echo the hero design."
+        title="Comprehensive Dental & Maxillofacial Care"
+        description="From preventive dentistry to advanced surgical procedures, we provide personalized treatments tailored to your needs in a comfortable and modern environment."
       />
 
       <div className="mt-14 grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
@@ -52,15 +52,11 @@ export const ServicesSection = memo(() => {
         >
           <p className="text-xs uppercase tracking-[0.55em] text-gold/80">Core Offerings</p>
           <h3 className="mt-4 font-display text-4xl font-semibold text-white">
-            Cosmetic, surgical, and restorative care in one experience
+            Specialized Treatments for Every Need
           </h3>
           <p className="mt-4 text-sm leading-8 text-white/70">
-            Every service card is crafted to feel like a premium treatment category rather than a simple clinic listing.
+            Explore our range of cosmetic, restorative, and surgical services designed to support your oral health, confidence, and overall well-being.
           </p>
-          <div className="mt-8 flex items-center gap-3 text-sm text-white/70">
-            <Sparkles className="text-[#F5C542]" size={18} />
-            Designed for a polished, future-forward hospital presence.
-          </div>
         </motion.div>
 
         <div className="grid gap-5 sm:grid-cols-2">

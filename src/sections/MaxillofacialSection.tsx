@@ -26,8 +26,8 @@ export const MaxillofacialSection = memo(() => {
     <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Maxillofacial Services"
-        title="Surgical expertise, presented with the same premium visual hierarchy"
-        description="A darker, more surgical tone contrasts the gold accents while keeping the same luxury atmosphere consistent across the site."
+        title="Expert Surgical Care with Precision and Compassion"
+        description="Comprehensive maxillofacial treatments delivered by experienced specialists using advanced techniques and personalized care."
       />
 
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

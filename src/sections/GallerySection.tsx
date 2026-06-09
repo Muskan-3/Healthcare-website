@@ -114,8 +114,8 @@ export const GallerySection = memo(() => {
     <section id="gallery" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Before After Gallery"
-        title="Experience Excellence Through Every Space"
-        description="From advanced treatment rooms to welcoming patient lounges, discover the environment that makes Savitri Luxury Healthcare truly exceptional."
+        title="Real Results, Beautiful Transformations"
+        description="Discover the remarkable outcomes achieved through our advanced dental, aesthetic, and maxillofacial treatments."
       />
 
       <div className="mt-14 columns-1 gap-6 space-y-6 md:columns-2 xl:columns-3">

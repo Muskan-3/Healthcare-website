@@ -9,8 +9,8 @@ export const TestimonialsSection = memo(() => {
     <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Testimonials"
-        title="Luxury testimonial cards with an auto-sliding feel"
-        description="The cards maintain the dark glassmorphism language while emphasizing trust, comfort, and premium care delivery."
+        title="What Our Patients Say"
+        description="Real experiences from patients who trusted us with their dental, aesthetic, and healthcare needs."
       />
 
       <div className="mt-14 grid gap-6 lg:grid-cols-3">

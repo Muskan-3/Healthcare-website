@@ -83,8 +83,8 @@ export const AppointmentSection = memo(() => {
     <section id="appointment" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Appointment"
-        title="A premium glassmorphism form with WhatsApp integration"
-        description="The final conversion point stays visually aligned with the rest of the site and routes quickly into a direct contact action."
+        title="Reserve Your Personalized Consultation"
+        description="Connect with our specialists to discuss your healthcare, dental, and aesthetic goals in a private, professional, and luxurious environment."
       />
 
       {/* backdrop-blur-xl removed — glass bg and border retained for premium look */}
