@@ -51,24 +51,34 @@ export const HeroSection = memo(() => {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <button
-              className="hidden md:inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#F5C542] to-[#FFD86B] px-7 py-4 text-sm font-semibold text-[#04010D] shadow-xl shadow-[rgba(245,197,66,0.24)] transition hover:scale-[1.02]"
+            <motion.button
+              whileHover={{ y: -3, scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: 'spring', stiffness: 380, damping: 20 }}
+              className="btn-shimmer btn-glow hidden md:inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#F5C542] to-[#FFD86B] px-7 py-4 text-sm font-semibold text-[#04010D]"
               onClick={() => (location.href = '#appointment')}
             >
               Book a Consultation
               <ArrowRight size={16} />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
               className="inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/[0.03] px-7 py-4 text-sm font-semibold text-white transition hover:border-[#F5C542] hover:text-[#FFD86B]"
               onClick={() => (location.href = '#dental-services')}
             >
               Explore Treatments
-            </button>
+            </motion.button>
           </div>
 
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {heroFeatures.map((feature) => (
-              <div key={feature.title} className="glass rounded-2xl p-4 transition hover:border-[#F5C542]/40">
+            {heroFeatures.map((feature, i) => (
+              <div
+                key={feature.title}
+                className="badge-float card-hover-glow glass rounded-2xl p-4 transition hover:border-[#F5C542]/40"
+                style={{ animationDelay: `${i * -1.6}s` }}
+              >
                 <div className="text-lg font-semibold text-white">{feature.title}</div>
                 <div className="mt-1 text-sm text-white/60">{feature.text}</div>
               </div>
@@ -76,8 +86,12 @@ export const HeroSection = memo(() => {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-3 text-sm text-white/75">
-            {quickStats.map((stat) => (
-              <div key={stat.label} className="glass rounded-full px-4 py-3">
+            {quickStats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className="badge-float glass rounded-full px-4 py-3"
+                style={{ animationDelay: `${i * -2.1}s` }}
+              >
                 <span className="mr-2 font-semibold text-[#F5C542]">{stat.value}</span>
                 {stat.label}
               </div>

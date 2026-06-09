@@ -59,7 +59,20 @@ export const ServicesSection = memo(() => {
           </p>
         </motion.div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.05,
+              }
+            }
+          }}
+          className="grid gap-5 sm:grid-cols-2"
+        >
           {dentalServices.map((service) => (
             <ServiceCard
               key={service}
@@ -68,7 +81,7 @@ export const ServicesSection = memo(() => {
               icon={SERVICE_ICONS[service] ?? Activity}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

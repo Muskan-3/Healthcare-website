@@ -13,15 +13,43 @@ export const TestimonialsSection = memo(() => {
         description="Real experiences from patients who trusted us with their dental, aesthetic, and healthcare needs."
       />
 
-      <div className="mt-14 grid gap-6 lg:grid-cols-3">
-        {testimonials.map((item, index) => (
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.06,
+            }
+          }
+        }}
+        className="mt-14 grid gap-6 lg:grid-cols-3"
+      >
+        {testimonials.map((item) => (
           <motion.article
             key={item.name}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.65, delay: index * 0.08 }}
-            className="glass rounded-[30px] p-7"
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { type: 'spring', stiffness: 100, damping: 18 },
+              },
+              hover: {
+                y: -6,
+                scale: 1.01,
+                transition: { type: 'spring', stiffness: 400, damping: 25 },
+              },
+              tap: {
+                scale: 0.98,
+                transition: { duration: 0.1 },
+              },
+            }}
+            whileHover="hover"
+            whileTap="tap"
+            className="glass rounded-[30px] p-7 cursor-pointer hover:border-gold/20 transition-colors duration-300"
           >
             <div className="flex gap-1 text-gold">
               {Array.from({ length: item.rating }).map((_, starIndex) => (
@@ -35,7 +63,7 @@ export const TestimonialsSection = memo(() => {
             </div>
           </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 });

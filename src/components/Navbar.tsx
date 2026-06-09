@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { Phone, CalendarDays, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { navLinks } from '../data/siteData';
 
 export const Navbar = memo(() => {
@@ -34,6 +35,7 @@ export const Navbar = memo(() => {
     if (!href.startsWith('#')) return;
     e.preventDefault();
     setOpen(false);
+  
     const id = href.slice(1);
     const el = document.getElementById(id);
     const header = document.querySelector('header');
@@ -47,9 +49,8 @@ export const Navbar = memo(() => {
   }, []);
 
   return (
-    // backdrop-blur reduced: xl (24px) → md (12px) on sticky, lg (16px) → sm (8px) default
     <header className={`fixed top-0 left-0 right-0 z-50 h-24 border-b border-white/10 bg-[#050214]/80 transition-shadow duration-200 ${isSticky ? 'backdrop-blur-md shadow-lg' : 'backdrop-blur-sm'}`}>
-      <div className="w-full h-full px-4 md:px-12">
+      <div className="w-full h-full px-4 md:px-12 relative z-50">
         <div className="flex items-center h-full gap-6">
           {/* Left: Logos */}
           <div className="flex items-center gap-4">
@@ -69,83 +70,133 @@ export const Navbar = memo(() => {
             </a>
           </div>
 
-          {/* Center: Nav */}
+          {/* Center: Nav (Desktop) */}
           <nav className="hidden md:flex flex-1 justify-center items-center gap-8 text-sm text-white/80">
             {navLinks.map((item) => (
-              <a key={item.label} href={item.href} onClick={(e) => scrollToAnchor(e, item.href)} className="px-2 transition hover:text-gold">
+              <motion.a
+                key={item.label}
+                href={item.href}
+                onClick={(e) => scrollToAnchor(e, item.href)}
+                whileHover={{ y: -1, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                className="px-2 transition hover:text-gold cursor-pointer"
+              >
                 {item.label}
-              </a>
+              </motion.a>
             ))}
           </nav>
 
           {/* Right: Actions */}
           <div className="flex items-center gap-3 ml-auto">
-            {/* Mobile hamburger */}
-            <button
+            <motion.a
+              href="tel:9956967000"
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              className="hidden items-center gap-2 rounded-full border border-white/12 px-4 py-2 text-sm text-white/90 transition hover:border-gold/50 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214] sm:flex"
+            >
+              <Phone size={15} className="text-gold" />
+              9956967000
+            </motion.a>
+
+            <motion.a
+              href="#appointment"
+              onClick={(e) => scrollToAnchor(e, '#appointment')}
+              whileHover={{ y: -2, scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              className="hidden md:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-luxe px-5 py-3 text-sm font-semibold text-black shadow-lg shadow-gold/20 hover:shadow-gold/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214]"
+            >
+              <CalendarDays size={15} />
+              Book Appointment
+            </motion.a>
+
+            {/* Mobile hamburger button */}
+            <motion.button
               type="button"
               aria-label="Toggle menu"
               aria-controls="mobile-menu-panel"
               onClick={() => setOpen((s) => !s)}
-              className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 z-50 inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#050214] border border-white/12 shadow-lg shadow-[rgba(0,0,0,0.6)] text-white transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+              className="md:hidden relative z-[10000] inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#050214] border border-white/12 shadow-lg text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214]"
             >
               {open ? <X size={18} /> : <Menu size={18} />}
-            </button>
-
-            <a href="tel:9956967000" className="hidden items-center gap-2 rounded-full border border-white/12 px-4 py-2 text-sm text-white/90 transition hover:border-gold/50 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214] sm:flex">
-              <Phone size={15} className="text-gold" />
-              9956967000
-            </a>
-
-            <a href="#appointment" onClick={(e) => scrollToAnchor(e, '#appointment')} className="hidden md:inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold to-luxe px-5 py-3 text-sm font-semibold text-black shadow-lg shadow-gold/20 transition hover:scale-[1.02] hover:shadow-gold/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214]">
-              <CalendarDays size={15} />
-              Book Appointment
-            </a>
+            </motion.button>
           </div>
         </div>
       </div>
 
       {/* Mobile menu overlay */}
-      <div id="mobile-menu-panel" className={`md:hidden fixed inset-0 z-[9998] transition-opacity duration-300 ${open ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-        {/* Backdrop */}
-        <button type="button" aria-label="Close menu overlay" onClick={() => setOpen(false)} className={`absolute inset-0 bg-black/80 transition-opacity duration-300 ${open ? 'opacity-100' : 'opacity-0'}`} />
+      <AnimatePresence>
+        {open && (
+          // Entire full screen container acts as a close trigger if tapped anywhere
+          <div 
+            id="mobile-menu-panel" 
+            className="md:hidden fixed inset-0 z-[999]"
+            onClick={() => setOpen(false)}
+          >
+            {/* Backdrop layer visual */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm w-full h-full cursor-pointer"
+            />
 
-        {/* Right-side sliding panel */}
-        <aside className={`fixed top-0 right-0 z-[9999] h-screen w-[88%] max-w-xs bg-[#050214] border-l border-white/10 shadow-2xl transform transition-transform duration-300 ease-in-out ${open ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="h-full flex flex-col p-6 text-white">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-2">
-                <div className="relative w-16 h-16 rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] overflow-hidden flex items-center justify-center bg-[#050214]">
-                  <img src="/Glow-savitri-logo.webp" alt="Savitri" className="w-full h-full object-cover scale-[1.2]" width="64" height="64" />
-                </div>
-                <div className="relative w-16 h-16 rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] overflow-hidden flex items-center justify-center bg-[#050214]">
-                  <img src="/SDH-logo.webp" alt="SDH" className="w-full h-full object-cover" width="64" height="64" />
-                </div>
+            {/* Right-side sliding panel */}
+            <motion.aside
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed top-0 right-0 z-[1000] h-screen w-[85%] max-w-xs bg-[#050214] border-l border-white/10 shadow-2xl pt-28 px-6 pb-6 text-white cursor-default"
+              // Prevents immediate closing only when clicking directly on the structural background card space
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="h-full flex flex-col justify-between">
+                {/* Navigation Links */}
+                <nav className="flex flex-col gap-2">
+                  {navLinks.map((item, idx) => (
+                    <motion.a
+                      key={item.label}
+                      href={item.href}
+                      onClick={(e) => scrollToAnchor(e, item.href)}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.05 + idx * 0.03 }}
+                      className="py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/5 transition-all duration-200 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 cursor-pointer"
+                    >
+                      {item.label}
+                    </motion.a>
+                  ))}
+                </nav>
+
+                {/* Bottom Call Action */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                  className="w-full pb-4"
+                >
+                  <a 
+                    href="tel:9956967000" 
+                    className="flex items-center justify-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-3.5 text-sm font-medium text-white hover:bg-gold/20 transition-all cursor-pointer"
+                  >
+                    <Phone size={16} className="text-gold" />
+                    9956967000
+                  </a>
+                </motion.div>
               </div>
-              <button type="button" aria-label="Close menu" onClick={() => setOpen(false)} className="p-2 rounded-full hover:bg-white/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214]">
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Navigation */}
-            <nav className="flex flex-col gap-1">
-              {navLinks.map((item) => (
-                <a key={item.label} href={item.href} onClick={(e) => scrollToAnchor(e, item.href)} className="py-3 px-2 rounded-lg text-white/90 hover:text-white hover:bg-white/5 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214]">
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-
-            {/* Footer */}
-            <div className="mt-auto pt-6">
-              <a href="tel:9956967000" className="flex items-center justify-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-3 text-sm font-medium text-white hover:bg-gold/20 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214]">
-                <Phone size={16} />
-                9956967000
-              </a>
-            </div>
+            </motion.aside>
           </div>
-        </aside>
-      </div>
+        )}
+      </AnimatePresence>
     </header>
   );
 });
+
+Navbar.displayName = 'Navbar';

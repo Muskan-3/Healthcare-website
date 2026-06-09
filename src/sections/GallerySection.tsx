@@ -82,16 +82,39 @@ const GalleryCard = memo(({
   <motion.button
     type="button"
     aria-label={`Open gallery image: ${item.title}`}
-    whileHover={{ scale: 1.02 }}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.1 }}
+    variants={{
+      hidden: { opacity: 0, y: 20, scale: 0.98 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { type: 'spring', stiffness: 100, damping: 20 },
+      },
+      hover: {
+        y: -4,
+        scale: 1.01,
+        transition: { type: 'spring', stiffness: 400, damping: 25 },
+      },
+      tap: {
+        scale: 0.98,
+        transition: { duration: 0.1 },
+      },
+    }}
+    whileHover="hover"
+    whileTap="tap"
     onClick={() => onClick(index)}
-    className="group relative block w-full overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] text-left shadow-2xl shadow-black/35 transform-gpu will-change-transform"
+    className="group relative block w-full overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.04] text-left shadow-2xl shadow-black/35 transform-gpu will-change-transform cursor-pointer"
   >
-    <div className="h-auto w-full">
+    <div className="h-auto w-full overflow-hidden">
       <LazyImage
         src={item.image}
         alt={item.title}
         priority={index < 3}
         className={galleryAspectClasses[index % galleryAspectClasses.length]}
+        imgClassName="transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
       />
     </div>
     <div className="absolute inset-0 bg-gradient-to-t from-[#050214]/90 via-[#050214]/10 to-transparent" />

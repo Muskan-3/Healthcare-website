@@ -14,10 +14,17 @@ export const SkinTreatmentsSection = memo(() => {
       />
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7 }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: {
+              staggerChildren: 0.05,
+            }
+          }
+        }}
         className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4"
       >
         {skinTreatments.map((treatment) => (

@@ -21,10 +21,10 @@ export const Lightbox = ({ open, title, image, onClose }: LightboxProps) => {
           onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0.92, y: 16 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0.92, y: 16 }}
-            transition={{ type: 'spring', stiffness: 180, damping: 20 }}
+            initial={{ scale: 0.96, opacity: 0, y: 12 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.96, opacity: 0, y: 12 }}
+            transition={{ type: 'spring', stiffness: 220, damping: 24 }}
             className="relative w-full max-w-5xl overflow-hidden rounded-[32px] border border-white/10 bg-[#0D0524] shadow-2xl shadow-black/60"
             onClick={(event) => event.stopPropagation()}
           >

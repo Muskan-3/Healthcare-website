@@ -1,6 +1,10 @@
 import { memo, useState } from 'react';
 
-type Props = React.ImgHTMLAttributes<HTMLImageElement> & { src: string; priority?: boolean };
+type Props = React.ImgHTMLAttributes<HTMLImageElement> & {
+  src: string;
+  priority?: boolean;
+  imgClassName?: string;
+};
 
 // Only append Unsplash resize params — local files (no 'unsplash.com') are used as-is
 const makeUrl = (src: string, w: number): string => {
@@ -8,7 +12,7 @@ const makeUrl = (src: string, w: number): string => {
   return src.includes('?') ? `${src}&w=${w}` : `${src}?w=${w}`;
 };
 
-export const LazyImage = memo(({ src, alt = '', className = '', priority = false, ...rest }: Props) => {
+export const LazyImage = memo(({ src, alt = '', className = '', imgClassName = '', priority = false, ...rest }: Props) => {
   const [loaded, setLoaded] = useState(false);
 
   const url600 = makeUrl(src, 600);
@@ -28,7 +32,7 @@ export const LazyImage = memo(({ src, alt = '', className = '', priority = false
         decoding="async"
         loading={priority ? 'eager' : 'lazy'}
         fetchPriority={priority ? 'high' : 'auto'}
-        className={`w-full h-full object-cover transition-opacity duration-300 ease-out ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`w-full h-full object-cover transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${loaded ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.04]'} ${imgClassName}`}
         {...rest}
       />
       {!loaded && <div className="absolute inset-0 bg-[#0b0420]" />}

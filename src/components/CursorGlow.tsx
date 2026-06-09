@@ -1,23 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const CursorGlow = () => {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onMove = (event: MouseEvent) => {
-      setPosition({ x: event.clientX, y: event.clientY });
+    const el = ref.current;
+    if (!el) return;
+
+    const onMove = (event: PointerEvent) => {
+      el.style.setProperty('--cursor-x', `${event.clientX}px`);
+      el.style.setProperty('--cursor-y', `${event.clientY}px`);
     };
 
-    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointermove', onMove, { passive: true });
     return () => window.removeEventListener('pointermove', onMove);
   }, []);
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[1] transition-opacity duration-300"
+      ref={ref}
+      className="pointer-events-none fixed inset-0 z-[1]"
       style={{
-        background: `radial-gradient(220px circle at ${position.x}px ${position.y}px, rgba(192, 132, 252, 0.16), transparent 60%)`,
+        background: `radial-gradient(220px circle at var(--cursor-x, -999px) var(--cursor-y, -999px), rgba(192, 132, 252, 0.16), transparent 60%)`,
       }}
     />
   );
-};
+};
