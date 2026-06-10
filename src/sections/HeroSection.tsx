@@ -43,9 +43,15 @@ export const HeroSection = memo(() => {
             <br />
             <span className="bg-gradient-to-b from-[#FFD86B] via-[#F5C542] to-[#F5C542] bg-clip-text text-transparent">Centre</span>
           </h1>
-          <p className="mt-6 text-base font-medium text-white/84 sm:text-lg hidden md:block">
-            By Dr. Reema Shukla <span className="text-[#F5C542]">- Director</span>
-          </p>
+         <p className="mt-6 text-base font-medium text-white/84 sm:text-lg hidden md:block">
+  <span className="block">
+    By Dr. Reema Shukla - BDS, MCFA, MCIT, MIAACD, D.Ortho
+  </span>
+
+  <span className="block text-[#F5C542] mt-1">
+    Certified Implantologist | Aesthetician | Trichologist | PMU Artist (Sweden)
+  </span>
+</p>
           <p className="mt-4 max-w-xl text-sm leading-7 text-white/70 sm:text-lg">
             Advanced Dental Care • Maxillofacial Surgery • Premium Skin Treatments
           </p>

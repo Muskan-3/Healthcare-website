@@ -38,7 +38,7 @@ export const ServicesSection = memo(() => {
     <section id="dental-services" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Services"
-        title="Comprehensive Dental & Maxillofacial Care"
+        title="Precision Dental and Facial Care"
         description="From preventive dentistry to advanced surgical procedures, we provide personalized treatments tailored to your needs in a comfortable and modern environment."
       />
 
