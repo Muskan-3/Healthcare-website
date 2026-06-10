@@ -1,15 +1,23 @@
 import React, { memo } from 'react';
 import { Phone, Mail, MapPin, Clock, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { navLinks } from '../data/siteData';
 
+
 // Shared column entrance variant — stagger driven by parent
-const colVariants = {
-  hidden: { opacity: 0, y: 20 },
+const colVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 100, damping: 18 },
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 18,
+    },
   },
 };
 
@@ -151,10 +159,10 @@ export const Footer = memo(() => {
               <li className="flex items-center gap-3">
                 <Mail size={15} className="flex-shrink-0 text-[#F5C542]/70" />
                 <a
-                  href="mailto:drreemashukla10@gmail.com"
+                  href="mailto:dentalsavitri@gmail.com"
                   className="hover:text-white transition-colors duration-200 break-all"
                 >
-                  drreemashukla10@gmail.com
+                  dentalsavitri@gmail.com
                 </a>
               </li>
             </ul>
@@ -188,4 +196,4 @@ export const Footer = memo(() => {
     </footer>
   );
 });
-
+
