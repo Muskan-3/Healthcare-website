@@ -71,12 +71,17 @@ body {
 .neon-text::after {
   content: '';
   position: absolute;
-  inset: 0;
+  inset: -40% -20%;
   pointer-events: none;
-  filter: blur(12px);
-  background: linear-gradient(180deg, rgba(168, 85, 247, 0.3), rgba(245, 197, 66, 0.16));
+  filter: blur(24px);
+  background: radial-gradient(
+    ellipse 80% 60% at 40% 55%,
+    rgba(168, 85, 247, 0.22) 0%,
+    rgba(245, 197, 66, 0.10) 42%,
+    transparent 72%
+  );
   mix-blend-mode: screen;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 /* small helper for subtle glowing border */
