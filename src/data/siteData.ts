@@ -38,14 +38,14 @@ export const skinTreatments = [
   {
     name: 'HydraFacial Therapy',
     image: '/Treatments/drive-download-20260609T030047Z-3-001/premium%20hydrafacial%20.jpeg',
-    imagePosition: '50% 46%',
+    imagePosition: '50% 60%',
     benefits: ['Deep cleanse', 'Glow boost', 'Hydration restoration'],
     price: 'From ₹2,999',
   },
   {
     name: 'Carbon Laser Peel',
     image: '/Treatments/drive-download-20260609T030047Z-3-001/carbon%20.jpeg',
-    imagePosition: '50% 48%',
+    imagePosition: '50% 65%',
     benefits: ['Pore clarity', 'Oil balance', 'Instant refinement'],
     price: 'From ₹3,999',
   },

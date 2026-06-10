@@ -20,7 +20,7 @@ export const LazyImage = memo(({ src, alt = '', className = '', imgClassName = '
   const hasSrcSet = src.includes('unsplash.com');
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden flex ${className}`}>
       <img
         src={url600}
         srcSet={hasSrcSet ? `${url600} 600w, ${url1200} 1200w` : undefined}
