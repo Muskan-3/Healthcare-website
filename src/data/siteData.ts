@@ -131,21 +131,21 @@ export const galleryItems = [
 
 export const testimonials = [
   {
-    name: 'Aaradhya S.',
-    role: 'Smile makeover patient',
-    quote: 'The experience felt more like a luxury wellness studio than a clinic. The result was precise, elegant, and genuinely confidence-changing.',
+    name: 'Suraj Yadav',
+    role: 'Google Review',
+    quote: 'The clinic is clean, well-organized, and very patient-friendly. The doctor and staff are highly professional, polite, and take time to explain the treatment clearly. The procedure was smooth and painless, and I felt genuinely cared for throughout my visit. Highly recommended for reliable and quality dental care in Prayagraj.',
     rating: 5,
   },
   {
-    name: 'Rohit M.',
-    role: 'Implant patient',
-    quote: 'The implant journey was seamless and the team explained every stage with clarity. Premium care without any friction.',
+    name: 'Mohd Abbas Khan',
+    role: 'Google Review',
+    quote: 'I have been coming to this dental hospital for years. Whenever I have any dental issue, I visit Savitri Dental Hospital because I feel I am in safe hands. Dr. Reema Shukla treats us very well and the clinic is hygienic and well-equipped. Always recommended.',
     rating: 5,
   },
   {
-    name: 'Nandini K.',
-    role: 'Skin treatment client',
-    quote: 'The skin treatment suite is beautifully designed and the results were visible quickly. It feels upscale in every detail.',
+    name: 'Ankita Shukla',
+    role: 'Google Review',
+    quote: 'Dr. Reema is personally very caring and kind. I visited after facing difficulties elsewhere and received proper treatment and guidance. The experience was comfortable and reassuring.',
     rating: 5,
   },
 ];

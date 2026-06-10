@@ -20,7 +20,7 @@ const Stat = memo(({ end, label, floatDelay = '0s' }: { end: number; label: stri
       className="card-float glow-card glass rounded-[28px] p-6 text-center"
       style={{ animationDelay: floatDelay }}
     >
-      <motion.div className="font-display text-5xl font-semibold text-gold">{rounded}</motion.div>
+      <motion.div className="font-body text-5xl font-bold tracking-tight text-gold">{rounded}</motion.div>
       <p className="mt-3 text-sm uppercase tracking-[0.35em] text-white/65">{label}</p>
     </div>
   );
