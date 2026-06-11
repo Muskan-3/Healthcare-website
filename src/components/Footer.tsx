@@ -109,6 +109,25 @@ export const Footer = memo(() => {
                   loading="lazy" decoding="async"
                 />
               </motion.a>
+              <motion.a
+                href="https://www.facebook.com/savitridentalhospital"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                whileHover={{ scale: 1.12, y: -2 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 18 }}
+                className="w-11 h-11 rounded-full overflow-hidden shadow-[0_4px_14px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]/70"
+              >
+                <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  <circle cx="24" cy="24" r="24" fill="#1877F2" />
+                  <path
+                    fill="white"
+                    d="M26.8 25.6h2.8l1.1-4.4h-3.9v-2.3c0-1.2.4-2.2 1.8-2.2h2.1v-3.8
+                       c-.4-.05-1.5-.15-2.7-.15-3.2 0-5.1 1.9-5.1 5.1v3.35H20v4.4h2.9V36h3.9V25.6z"
+                  />
+                </svg>
+              </motion.a>
             </div>
           </motion.div>
 
