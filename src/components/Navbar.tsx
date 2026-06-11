@@ -49,23 +49,24 @@ export const Navbar = memo(() => {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 h-24 border-b border-white/10 bg-[#050214]/80 transition-shadow duration-200 ${isSticky ? 'backdrop-blur-md shadow-lg' : 'backdrop-blur-sm'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 h-28 border-b border-white/10 bg-[#050214]/80 transition-shadow duration-200 ${isSticky ? 'backdrop-blur-md shadow-lg' : 'backdrop-blur-sm'}`}>
       <div className="w-full h-full px-4 md:px-12 relative z-50">
         <div className="flex items-center h-full gap-6">
           {/* Left: Logos */}
           <div className="flex items-center gap-4">
             <a href="#home" onClick={(e) => scrollToAnchor(e, '#home')} className="flex items-center gap-3 group">
               <div className="flex items-center gap-2">
-                <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] transition-transform duration-300 group-hover:scale-105 overflow-hidden flex items-center justify-center bg-[#050214]">
-                  <img src="/Glow-savitri-logo.webp" alt="Savitri" className="w-full h-full object-cover scale-[1.2]" loading="eager" width="64" height="64" />
+                <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] transition-transform duration-300 group-hover:scale-105 overflow-hidden flex items-center justify-center bg-[#050214]">
+                  <img src="/Glow-savitri-logo.webp" alt="Savitri" className="w-full h-full object-cover scale-[1.2]" loading="eager" width="72" height="72" />
                 </div>
-                <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] transition-transform duration-300 group-hover:scale-105 overflow-hidden flex items-center justify-center bg-[#050214]">
-                  <img src="/SDH-logo.webp" alt="SDH" className="w-full h-full object-cover" loading="eager" width="64" height="64" />
+                <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] transition-transform duration-300 group-hover:scale-105 overflow-hidden flex items-center justify-center bg-[#050214]">
+                  <img src="/SDH-logo.webp" alt="SDH" className="w-full h-full object-cover" loading="eager" width="72" height="72" />
                 </div>
               </div>
-              <div className="hidden sm:block ml-2 transition-opacity group-hover:opacity-80">
-                <p className="font-display text-lg font-bold tracking-wide text-white">Savitri</p>
-                <p className="text-[11px] uppercase tracking-[0.4em] text-white/55">Luxury Healthcare</p>
+              <div className="hidden sm:block ml-2.5 transition-opacity group-hover:opacity-80">
+                <p className="font-display text-[15px] leading-[1.2] font-bold tracking-wide text-white">Savitri Dental Hospital</p>
+                <p className="font-display text-[13px] leading-[1.3] font-semibold tracking-[0.01em] text-white/75">&amp; Maxillofacial Centre</p>
+                <p className="text-[10px] uppercase tracking-[0.38em] text-white/50 mt-1">Luxury Healthcare</p>
               </div>
             </a>
           </div>
@@ -153,7 +154,7 @@ export const Navbar = memo(() => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 z-[1000] h-screen w-[85%] max-w-xs bg-[#050214] border-l border-white/10 shadow-2xl pt-28 px-6 pb-6 text-white cursor-default"
+              className="fixed top-0 right-0 z-[1000] h-screen w-[85%] max-w-xs bg-[#050214] border-l border-white/10 shadow-2xl pt-32 px-6 pb-6 text-white cursor-default"
               // Prevents immediate closing only when clicking directly on the structural background card space
               onClick={(e) => e.stopPropagation()}
             >
