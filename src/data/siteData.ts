@@ -72,8 +72,8 @@ export const skinTreatments = [
   },
   {
     name: 'Collagen Induction Therapy',
-    image: '/Treatments/drive-download-20260609T030047Z-3-001/collagen%20boost.jpeg',
-    imagePosition: '50% 39%',
+    image: '/Treatments/drive-download-20260609T030047Z-3-001/Collagen%20indcuction.jpeg',
+    imagePosition: '50% 30%',
     benefits: ['Firmness', 'Bounce', 'Nourishment'],
     price: 'From ₹6,499',
   },
