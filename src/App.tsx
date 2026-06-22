@@ -41,6 +41,10 @@ const AppointmentSection = lazy(() =>
   import('./sections/AppointmentSection').then((m) => ({ default: m.AppointmentSection }))
 );
 
+const MapSection = lazy(() =>
+  import('./sections/MapSection').then((m) => ({ default: m.MapSection }))
+);
+
 const SectionFallback = () => (
   <div className="py-24 text-center text-white/30 text-sm">
     Loading...
@@ -90,6 +94,10 @@ const App = () => {
 
         <Suspense fallback={<SectionFallback />}>
           <FAQSection />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback />}>
+          <MapSection />
         </Suspense>
 
         <Suspense fallback={<SectionFallback />}>
