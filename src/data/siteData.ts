@@ -1,3 +1,14 @@
+export const clinicInfo = {
+  address: 'Ward No-25, 66A/2C, Stanley Rd, near Mahboob Ali Inter College, Annpurna Vihar, Prayagraj, Uttar Pradesh 211002',
+  timings: [
+    { days: 'Monday to Saturday', slots: ['10 AM to 2 PM', '5 PM to 8 PM'] },
+    { days: 'Sunday', slots: ['11 AM to 2 PM'] },
+  ],
+  phone: '+91 99569 67000',
+  phoneRaw: '9956967000',
+  email: 'dentalsavitri@gmail.com',
+};
+
 export const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },

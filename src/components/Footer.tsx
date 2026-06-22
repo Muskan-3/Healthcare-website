@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Phone, Mail, MapPin, Clock, ExternalLink } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
-import { navLinks } from '../data/siteData';
+import { navLinks, clinicInfo } from '../data/siteData';
 
 
 // Shared column entrance variant — stagger driven by parent
@@ -160,28 +160,35 @@ export const Footer = memo(() => {
             <ul className="space-y-4 text-sm text-white/65">
               <li className="flex items-start gap-3">
                 <MapPin size={15} className="mt-0.5 flex-shrink-0 text-[#F5C542]/70" />
-                <span>66A/2C, Ward No 25, Stanley Road,<br />Prayagraj — 211002</span>
+                <span>{clinicInfo.address}</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Clock size={15} className="flex-shrink-0 text-[#F5C542]/70" />
-                <span>Mon – Sat &nbsp;·&nbsp; 9:00 AM — 6:00 PM</span>
-              </li>
+              {clinicInfo.timings.map((t) => (
+                <li key={t.days} className="flex items-start gap-3">
+                  <Clock size={15} className="mt-0.5 flex-shrink-0 text-[#F5C542]/70" />
+                  <span>
+                    <span className="text-white/85 font-medium">{t.days}</span>
+                    {t.slots.map((s) => (
+                      <span key={s} className="block">{s}</span>
+                    ))}
+                  </span>
+                </li>
+              ))}
               <li className="flex items-center gap-3">
                 <Phone size={15} className="flex-shrink-0 text-[#F5C542]/70" />
                 <a
-                  href="tel:9956967000"
+                  href={`tel:${clinicInfo.phoneRaw}`}
                   className="hover:text-white transition-colors duration-200"
                 >
-                  +91 99569 67000
+                  {clinicInfo.phone}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={15} className="flex-shrink-0 text-[#F5C542]/70" />
                 <a
-                  href="mailto:dentalsavitri@gmail.com"
+                  href={`mailto:${clinicInfo.email}`}
                   className="hover:text-white transition-colors duration-200 break-all"
                 >
-                  dentalsavitri@gmail.com
+                  {clinicInfo.email}
                 </a>
               </li>
             </ul>
