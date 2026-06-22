@@ -19,7 +19,7 @@ export const navLinks = [
 ];
 
 export const quickStats = [
-  { value: '12+', label: 'Years of premium care' },
+  { value: '20+', label: 'Years of premium care' },
   { value: '25K+', label: 'Patients Reached' },
   { value: '24/7', label: 'Patient support guidance' },
 ];

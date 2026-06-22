@@ -262,6 +262,7 @@ body {
 #dental-services,
 #skin-treatments,
 #gallery,
+#video-showcase,
 #google-review,
 #appointment {
   content-visibility: auto;
@@ -392,9 +393,21 @@ body {
   .btn-shimmer::before { animation-duration: 4.5s !important; }
 }
 
+/* ── Video showcase: play button pulse ring ── */
+@keyframes video-play-pulse {
+  0%   { transform: scale(0.85); opacity: 0.6; }
+  70%  { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+.video-play-pulse {
+  animation: video-play-pulse 2.5s ease-out infinite;
+  will-change: transform, opacity;
+}
+
 /* ── Respect reduced-motion ── */
 @media (prefers-reduced-motion: reduce) {
   .icon-float, .card-float, .badge-float,
-  .icon-glow-pulse, .glow-card, .star-twinkle { animation: none !important; }
+  .icon-glow-pulse, .glow-card, .star-twinkle,
+  .video-play-pulse { animation: none !important; }
   .btn-shimmer::before { animation: none !important; }
 }
