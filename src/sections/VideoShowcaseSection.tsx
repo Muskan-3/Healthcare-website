@@ -266,7 +266,15 @@ const VideoThumb = ({
       style={{
         isolation: 'isolate',
         willChange: 'transform',
-        minHeight: thumbReady ? undefined : (featured ? 240 : 160),
+        /*
+         * maxHeight caps the thumbnail area so portrait videos don't make
+         * cards excessively tall. object-contain on the <video> preserves
+         * the original aspect ratio — nothing is cropped; the video simply
+         * sits within the constrained box (pillarboxed if portrait).
+         * The card background fills any empty space seamlessly.
+         */
+        maxHeight: featured ? 220 : 170,
+        minHeight: thumbReady ? undefined : (featured ? 180 : 130),
       }}
     >
       {/* Skeleton shimmer */}
@@ -283,14 +291,14 @@ const VideoThumb = ({
       )}
 
       {/*
-       * block + w-full + h-auto → intrinsic aspect ratio, no letterboxing.
-       * NO transform on hover — uses brightness filter instead so nothing
-       * can escape the overflow-hidden boundary.
+       * h-full + object-contain → fills the constrained wrapper height
+       * while preserving the video's original aspect ratio exactly.
+       * group-hover:brightness-110 → in-place effect, zero overflow risk.
        */}
       <video
         ref={thumbRef}
         src={video.file}
-        className={`block w-full h-auto transition-[filter] duration-500 ease-out group-hover:brightness-110 ${thumbReady ? 'opacity-100' : 'opacity-0'}`}
+        className={`block w-full h-full object-contain transition-[filter] duration-500 ease-out group-hover:brightness-110 ${thumbReady ? 'opacity-100' : 'opacity-0'}`}
         muted
         playsInline
         preload="metadata"
@@ -415,7 +423,7 @@ const VideoCard = memo(({
      * Reduced padding keeps the card tight; no extra black band in between.
      * pt-0 is intentional — the gradient already provides visual separation.
      */}
-    <div className="relative z-[1] flex flex-col gap-1 px-4 pt-2 pb-4">
+    <div className="relative z-[1] flex flex-col gap-0.5 px-3 pt-2 pb-3">
       {/* Accent line */}
       <div
         className={`h-px rounded-full bg-gradient-to-r from-[#8B3DFF] to-[#F5C542] transition-all duration-300 group-hover:w-12 ${featured ? 'w-9' : 'w-6'}`}
@@ -450,7 +458,7 @@ export const VideoShowcaseSection = memo(() => {
   return (
     <section
       id="video-showcase"
-      className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8"
+      className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
     >
       {/* Ambient glow blobs */}
       <div
@@ -477,19 +485,23 @@ export const VideoShowcaseSection = memo(() => {
       />
 
       {/*
-        Layout strategy (desktop):
-          Left column  → 1 featured card (wider, ~55% width)
-          Right column → 2×2 masonry of remaining 4 cards (~45% width)
+        Layout (desktop):
+          ┌─────────────────────────────┐
+          │       Featured hero         │  ← centred, ~75 % width
+          └─────────────────────────────┘
+          ┌──────────────┐ ┌────────────┐
+          │   Video 2    │ │  Video 3   │  ← 2-col grid
+          └──────────────┘ └────────────┘
+          ┌──────────────┐ ┌────────────┐
+          │   Video 4    │ │  Video 5   │
+          └──────────────┘ └────────────┘
 
-        On mobile/tablet everything stacks single-column naturally.
-
-        CSS columns are used inside the right panel so each card sizes to
-        its own video — no row equalisation, no artificial heights.
+        Mobile: everything stacks to a single column.
       */}
-      <div className="mt-12 flex flex-col gap-4 lg:flex-row lg:items-start lg:gap-5">
 
-        {/* ── Featured card ── */}
-        <div className="w-full lg:w-[54%] shrink-0">
+      {/* ── Featured hero ── */}
+      <div className="mt-8 flex justify-center">
+        <div className="w-full max-w-[65%] sm:max-w-[70%] lg:max-w-[62%]">
           <VideoCard
             video={featured}
             index={0}
@@ -497,22 +509,18 @@ export const VideoShowcaseSection = memo(() => {
             featured
           />
         </div>
+      </div>
 
-        {/* ── Right panel: 2-column masonry of remaining 4 videos ── */}
-        <div
-          className="w-full lg:flex-1"
-          style={{ columns: '2', columnGap: '1rem' }}
-        >
-          {rest.map((video, i) => (
-            <div key={video.id} className="break-inside-avoid mb-4">
-              <VideoCard
-                video={video}
-                index={i + 1}
-                onOpen={openVideo}
-              />
-            </div>
-          ))}
-        </div>
+      {/* ── 2 × 2 grid of remaining videos ── */}
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {rest.map((video, i) => (
+          <VideoCard
+            key={video.id}
+            video={video}
+            index={i + 1}
+            onOpen={openVideo}
+          />
+        ))}
       </div>
 
       {/* Lightbox */}
