@@ -55,12 +55,12 @@ export const Navbar = memo(() => {
           {/* Left: Logos */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              {/* Glow Savitri logo → scrolls to Maxillofacial section */}
+              {/* Glow Savitri logo → scrolls to Skin & Aesthetic Treatments section */}
               <a
-                href="#maxillofacial"
-                onClick={(e) => scrollToAnchor(e, '#maxillofacial')}
+                href="#skin-treatments"
+                onClick={(e) => scrollToAnchor(e, '#skin-treatments')}
                 className="group"
-                aria-label="Go to Maxillofacial section"
+                aria-label="Go to Skin & Aesthetic Treatments section"
               >
                 <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] transition-transform duration-300 group-hover:scale-105 overflow-hidden flex items-center justify-center bg-[#050214]">
                   <img src="/Glow-savitri-logo.webp" alt="Savitri" className="w-full h-full object-cover scale-[1.2]" loading="eager" width="72" height="72" />
