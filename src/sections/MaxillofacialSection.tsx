@@ -23,7 +23,7 @@ const SERVICE_ICONS = [
 
 export const MaxillofacialSection = memo(() => {
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
+    <section id="maxillofacial" className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
       <SectionHeading
         eyebrow="Maxillofacial Services"
         title="Expert Surgical Care with Precision and Compassion"

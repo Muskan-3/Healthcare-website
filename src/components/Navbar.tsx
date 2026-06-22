@@ -54,22 +54,38 @@ export const Navbar = memo(() => {
         <div className="flex items-center h-full gap-6">
           {/* Left: Logos */}
           <div className="flex items-center gap-4">
-            <a href="#home" onClick={(e) => scrollToAnchor(e, '#home')} className="flex items-center gap-3 group">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
+              {/* Glow Savitri logo → scrolls to Maxillofacial section */}
+              <a
+                href="#maxillofacial"
+                onClick={(e) => scrollToAnchor(e, '#maxillofacial')}
+                className="group"
+                aria-label="Go to Maxillofacial section"
+              >
                 <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] transition-transform duration-300 group-hover:scale-105 overflow-hidden flex items-center justify-center bg-[#050214]">
                   <img src="/Glow-savitri-logo.webp" alt="Savitri" className="w-full h-full object-cover scale-[1.2]" loading="eager" width="72" height="72" />
                 </div>
+              </a>
+
+              {/* SDH logo + text → scrolls to Dental Services section */}
+              <a
+                href="#dental-services"
+                onClick={(e) => scrollToAnchor(e, '#dental-services')}
+                className="flex items-center gap-3 group"
+                aria-label="Go to Dental Services section"
+              >
                 <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] rounded-full shadow-[0_0_15px_rgba(245,197,66,0.3)] transition-transform duration-300 group-hover:scale-105 overflow-hidden flex items-center justify-center bg-[#050214]">
                   <img src="/SDH-logo.webp" alt="SDH" className="w-full h-full object-cover" loading="eager" width="72" height="72" />
                 </div>
-              </div>
-              <div className="hidden sm:block ml-2.5 transition-opacity group-hover:opacity-80">
-                <p className="font-display text-[15px] leading-[1.2] font-bold tracking-wide text-white">Savitri Dental Hospital</p>
-                <p className="font-display text-[13px] leading-[1.3] font-semibold tracking-[0.01em] text-white/75">&amp; Maxillofacial Centre</p>
-                <p className="text-[10px] uppercase tracking-[0.38em] text-white/50 mt-1">Luxury Healthcare</p>
-              </div>
-            </a>
+                <div className="hidden sm:block ml-2.5 transition-opacity group-hover:opacity-80">
+                  <p className="font-display text-[15px] leading-[1.2] font-bold tracking-wide text-white">Savitri Dental Hospital</p>
+                  <p className="font-display text-[13px] leading-[1.3] font-semibold tracking-[0.01em] text-white/75">&amp; Maxillofacial Centre</p>
+                  <p className="text-[10px] uppercase tracking-[0.38em] text-white/50 mt-1">Luxury Healthcare</p>
+                </div>
+              </a>
+            </div>
           </div>
+
 
           {/* Center: Nav (Desktop) */}
           <nav className="hidden md:flex flex-1 justify-center items-center gap-8 text-sm text-white/80">
