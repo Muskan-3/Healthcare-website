@@ -479,12 +479,32 @@ const VideoCard = memo(({
   video,
   index,
   onOpen,
+  isHovered,
+  onHoverStart,
+  onHoverEnd,
 }: {
   video: VideoItem;
   index: number;
   onOpen: (v: VideoItem) => void;
+  isHovered: boolean;
+  onHoverStart: (id: string) => void;
+  onHoverEnd: () => void;
 }) => {
   const tagConfig = TAG_CONFIG[video.tag] ?? { style: 'bg-white/10 text-white/70 border-white/10', label: video.tag };
+  const hoverVideoRef = useRef<HTMLVideoElement>(null);
+
+  /* Play / pause the inline preview on hover */
+  useEffect(() => {
+    const el = hoverVideoRef.current;
+    if (!el) return;
+    if (isHovered) {
+      el.currentTime = 0;
+      el.play().catch(() => {});
+    } else {
+      el.pause();
+      el.currentTime = 0;
+    }
+  }, [isHovered]);
 
   return (
     <motion.article
@@ -507,6 +527,8 @@ const VideoCard = memo(({
         border: '1px solid rgba(255,255,255,0.07)',
       }}
       onClick={() => onOpen(video)}
+      onMouseEnter={() => onHoverStart(video.id)}
+      onMouseLeave={() => onHoverEnd()}
       role="button"
       tabIndex={0}
       aria-label={`Play video: ${video.title}`}
@@ -537,6 +559,19 @@ const VideoCard = memo(({
           videoSrc={video.file}
           alt={video.title}
           className="transition-[filter,transform] duration-700 ease-out group-hover:brightness-110 group-hover:scale-[1.05]"
+        />
+
+        {/* Inline hover-preview video — muted, plays on hover, fades in/out */}
+        <video
+          ref={hoverVideoRef}
+          src={video.file}
+          muted
+          playsInline
+          loop
+          preload="none"
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-opacity duration-500"
+          style={{ opacity: isHovered ? 1 : 0, zIndex: 0 }}
         />
 
         {/* Gradient overlay — soft, lighter bottom fade */}
@@ -591,9 +626,13 @@ VideoCard.displayName = 'VideoCard';
 /* ─── Section ──────────────────────────────────────────────────────────────── */
 export const VideoShowcaseSection = memo(() => {
   const [activeVideo, setActiveVideo] = useState<VideoItem | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const openVideo = useCallback((v: VideoItem) => setActiveVideo(v), []);
   const closeVideo = useCallback(() => setActiveVideo(null), []);
+
+  const handleHoverStart = useCallback((id: string) => setHoveredId(id), []);
+  const handleHoverEnd = useCallback(() => setHoveredId(null), []);
 
   return (
     <section
@@ -633,6 +672,9 @@ export const VideoShowcaseSection = memo(() => {
             video={video}
             index={i}
             onOpen={openVideo}
+            isHovered={hoveredId === video.id}
+            onHoverStart={handleHoverStart}
+            onHoverEnd={handleHoverEnd}
           />
         ))}
       </div>
