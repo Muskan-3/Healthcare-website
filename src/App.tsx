@@ -41,6 +41,10 @@ const AppointmentSection = lazy(() =>
   import('./sections/AppointmentSection').then((m) => ({ default: m.AppointmentSection }))
 );
 
+const VideoShowcaseSection = lazy(() =>
+  import('./sections/VideoShowcaseSection').then((m) => ({ default: m.VideoShowcaseSection }))
+);
+
 const MapSection = lazy(() =>
   import('./sections/MapSection').then((m) => ({ default: m.MapSection }))
 );
@@ -94,6 +98,10 @@ const App = () => {
 
         <Suspense fallback={<SectionFallback />}>
           <FAQSection />
+        </Suspense>
+
+        <Suspense fallback={<SectionFallback />}>
+          <VideoShowcaseSection />
         </Suspense>
 
         <Suspense fallback={<SectionFallback />}>
