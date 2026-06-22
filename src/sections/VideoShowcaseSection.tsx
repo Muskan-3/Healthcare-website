@@ -1,4 +1,4 @@
-﻿import { memo, useRef, useState, useCallback, useEffect } from 'react';
+import { memo, useRef, useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, Volume2, VolumeX, Maximize2, X, PlayCircle, ArrowRight } from 'lucide-react';
@@ -346,22 +346,22 @@ const VideoLightbox = memo(({
         className="relative flex flex-col overflow-hidden rounded-2xl border border-white/10 shadow-[0_32px_100px_rgba(76,29,149,0.5),0_0_0_1px_rgba(245,197,66,0.08)]"
         style={{
           width: 'calc(100% - 2rem)',
-          maxWidth: 1100,
-          maxHeight: '90vh',
+          maxWidth: 900,
+          maxHeight: '82vh',
           background: 'rgba(5,2,20,0.97)',
         }}
       >
         {/* Video container */}
         <div
-          className="relative w-full overflow-hidden flex items-center justify-center bg-black"
-          style={{ maxHeight: '80vh' }}
+          className="relative w-full overflow-hidden flex items-center justify-center"
+          style={{ maxHeight: '68vh' }}
         >
           <video
             ref={videoRef}
             src={video.file}
             poster={cachedThumb || undefined}
             className="block w-full object-contain"
-            style={{ maxHeight: '80vh' }}
+            style={{ maxHeight: '68vh' }}
             playsInline
             preload="auto"
             onEnded={() => setPlaying(false)}
@@ -523,14 +523,13 @@ const VideoCard = memo(({
         }}
       />
 
-      {/* Thumbnail — 9:16 portrait aspect ratio, dominant element */}
+      {/* Thumbnail — 3:4 portrait aspect ratio, compact */}
       <div
         className="relative w-full overflow-hidden"
         style={{
           isolation: 'isolate',
           willChange: 'transform',
-          aspectRatio: '9 / 16',
-          borderRadius: '16px 16px 0 0',
+          aspectRatio: '3 / 4',
         }}
       >
         {/* Auto-generated video thumbnail */}
@@ -540,17 +539,17 @@ const VideoCard = memo(({
           className="transition-[filter,transform] duration-700 ease-out group-hover:brightness-110 group-hover:scale-[1.05]"
         />
 
-        {/* Gradient overlay — smooth bottom fade */}
+        {/* Gradient overlay — soft, lighter bottom fade */}
         <div
           className="absolute inset-0 pointer-events-none z-[1]"
           style={{
             background: `linear-gradient(
               to bottom,
               transparent 0%,
-              transparent 35%,
-              rgba(5,2,20,0.2) 55%,
-              rgba(5,2,20,0.7) 75%,
-              rgba(5,2,20,0.97) 100%
+              transparent 50%,
+              rgba(5,2,20,0.12) 68%,
+              rgba(5,2,20,0.38) 85%,
+              rgba(8,3,27,0.62) 100%
             )`,
           }}
         />
@@ -570,9 +569,8 @@ const VideoCard = memo(({
         </div>
       </div>
 
-      {/* Text content — compact, below video */}
-      <div className="relative z-[1] flex flex-col px-4 pt-4 pb-4">
-        <div className="h-px w-8 rounded-full bg-gradient-to-r from-[#8B3DFF] to-[#F5C542] mb-3 group-hover:w-12 transition-all duration-500" />
+      {/* Text content — seamless continuation of card */}
+      <div className="relative z-[1] flex flex-col px-4 pt-3.5 pb-4">
         <h3 className="font-display text-[0.95rem] font-semibold text-white leading-snug group-hover:text-[#F5C542] transition-colors duration-300">
           {video.title}
         </h3>
