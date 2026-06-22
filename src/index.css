@@ -1,0 +1,400 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  background: #04010d;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #04010d;
+  color: #fff;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(245, 197, 66, 0.35);
+  color: #fff;
+}
+
+.lux-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.07) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+/* Reduced from blur(14px) to blur(8px) — major GPU savings on glass cards */
+.glass {
+  background: linear-gradient(165deg, rgba(8, 3, 27, 0.82), rgba(5, 2, 20, 0.74));
+  border: 1px solid rgba(192, 132, 252, 0.2);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.glow-ring {
+  box-shadow: 0 0 0 1px rgba(245, 197, 66, 0.18), 0 0 38px rgba(76, 29, 149, 0.25), 0 0 110px rgba(76, 29, 149, 0.15);
+}
+
+.hero-title {
+  overflow-wrap: anywhere;
+  text-shadow: 0 0 24px rgba(139, 61, 255, 0.35);
+}
+
+.mesh-overlay {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(76, 29, 149, 0.34), transparent 18%),
+    radial-gradient(circle at 80% 18%, rgba(245, 197, 66, 0.12), transparent 16%),
+    radial-gradient(circle at 70% 70%, rgba(124, 58, 237, 0.18), transparent 22%),
+    linear-gradient(180deg, rgba(5, 2, 20, 0.15), rgba(5, 2, 20, 0.88));
+}
+
+.text-stroke-gold {
+  -webkit-text-stroke: 1px rgba(245, 197, 66, 0.28);
+}
+
+/* Neon headline */
+.neon-text {
+  color: #fff;
+  position: relative;
+}
+.neon-text::after {
+  content: '';
+  position: absolute;
+  inset: -40% -20%;
+  pointer-events: none;
+  filter: blur(24px);
+  background: radial-gradient(
+    ellipse 80% 60% at 40% 55%,
+    rgba(168, 85, 247, 0.22) 0%,
+    rgba(245, 197, 66, 0.10) 42%,
+    transparent 72%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* small helper for subtle glowing border */
+.glow-border {
+  box-shadow: 0 6px 40px rgba(76,29,149,0.18), 0 0 18px rgba(255,214,107,0.06) inset;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Hero blob styles */
+.hero-blob {
+  position: absolute;
+  right: -5%;
+  top: 3%;
+  width: 66%;
+  aspect-ratio: 1/1;
+  filter: drop-shadow(0 0 70px rgba(139, 61, 255, 0.36)) drop-shadow(0 0 48px rgba(245, 197, 66, 0.22));
+}
+.hero-blob .rim {
+  stroke: rgba(192, 132, 252, 0.94);
+  stroke-width: 2.9;
+  stroke-linejoin: round;
+  filter: blur(0.3px);
+}
+.hero-blob .rim-glow {
+  stroke: rgba(139, 61, 255, 1);
+  stroke-width: 9;
+  opacity: 0.32;
+  filter: blur(14px);
+}
+
+/* Static starfield — no animation, just a dot pattern */
+.hero-starfield {
+  background-image:
+    radial-gradient(circle at 6% 15%, rgba(255, 255, 255, 0.7) 1px, transparent 1.2px),
+    radial-gradient(circle at 26% 35%, rgba(255, 216, 107, 0.65) 1px, transparent 1.2px),
+    radial-gradient(circle at 44% 24%, rgba(192, 132, 252, 0.62) 1px, transparent 1.1px),
+    radial-gradient(circle at 64% 18%, rgba(255, 255, 255, 0.6) 1px, transparent 1.2px),
+    radial-gradient(circle at 82% 28%, rgba(255, 216, 107, 0.55) 1px, transparent 1.3px),
+    radial-gradient(circle at 78% 66%, rgba(192, 132, 252, 0.64) 1px, transparent 1.2px),
+    radial-gradient(circle at 14% 72%, rgba(255, 255, 255, 0.62) 1px, transparent 1.2px),
+    radial-gradient(circle at 33% 84%, rgba(255, 216, 107, 0.5) 1px, transparent 1.2px);
+  /* No animation — static dot field for zero GPU cost */
+}
+
+/* Static energy wave — no animation */
+.hero-energy-wave {
+  background:
+    radial-gradient(120% 48% at 50% 14%, rgba(139, 61, 255, 0.2), transparent 64%),
+    radial-gradient(110% 50% at 50% 34%, rgba(168, 85, 247, 0.16), transparent 68%),
+    radial-gradient(115% 52% at 50% 58%, rgba(139, 61, 255, 0.12), transparent 70%);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+/* Magnetic button base */
+.magnetic { transition: transform 0.18s cubic-bezier(.2,.9,.2,1); will-change: transform; }
+
+/* doctor prominence */
+.hero-blob-figure { max-width: 760px; transform: translateY(-4%); }
+.hero-blob-figure image { mix-blend-mode: normal; filter: drop-shadow(0 30px 60px rgba(2,1,6,0.72)); }
+
+/* New blob figure styles */
+.hero-blob-figure { display: block; max-width: 520px; height: auto; filter: drop-shadow(0 40px 80px rgba(2,1,6,0.7)); transform-origin: center; }
+.blob-rim { filter: blur(0.6px); }
+.blob-gold { mix-blend-mode: screen; }
+
+.hero-logo-glow {
+  width: 84px;
+  height: auto;
+  filter: drop-shadow(0 6px 28px rgba(139,61,255,0.45)) drop-shadow(0 0 18px rgba(245,197,66,0.18));
+  opacity: 0.98;
+}
+
+.hero-sdh-badge {
+  width: 74px;
+  height: auto;
+  transform: translateZ(0);
+  filter: drop-shadow(0 8px 28px rgba(4,1,13,0.6));
+  background: rgba(4,1,13,0.18);
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,216,107,0.12);
+}
+
+
+
+/* Doctor portrait container */
+.doctor-portrait { width: 300px; height: 300px; display: block; }
+.doctor-portrait-inner { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; position: relative; box-shadow: 0 20px 54px rgba(4,1,13,0.7); border: 1px solid rgba(255,255,255,0.04); }
+.doctor-img { width: 120%; height: 120%; object-fit: cover; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-52%); }
+
+/* neon purple outline + gold rim */
+.doctor-portrait-inner::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; pointer-events: none; box-shadow: 0 0 34px rgba(139,61,255,0.42), 0 0 18px rgba(168,85,247,0.18); border: 2px solid rgba(139,61,255,0.28); }
+.doctor-portrait-inner::after { content: ''; position: absolute; inset: -18px; border-radius: 50%; pointer-events: none; box-shadow: 0 0 64px rgba(245,197,66,0.16); border: 3px solid rgba(245,197,66,0.08); mix-blend-mode: screen; }
+
+/* Responsive tweaks for small screens */
+@media (max-width: 768px) {
+  .hero-blob {
+    right: -12%;
+    top: 6%;
+    width: 110%;
+    max-width: 820px;
+  }
+
+  .hero-blob-figure {
+    max-width: 420px;
+    transform: translateY(-2%);
+    display: none;
+  }
+
+  .doctor-portrait {
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .doctor-portrait-inner { border-radius: 24px; }
+
+
+
+  /* Reduce glass blur on mobile — significant GPU savings */
+  .glass {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Reduce glow intensity by ~50% on mobile */
+  .glow-ring {
+    box-shadow: 0 0 0 1px rgba(245, 197, 66, 0.12), 0 0 20px rgba(76, 29, 149, 0.15);
+  }
+
+  .hero-blob {
+    filter: drop-shadow(0 0 35px rgba(139, 61, 255, 0.2));
+  }
+
+  .doctor-portrait-inner::before {
+    box-shadow: 0 0 18px rgba(139,61,255,0.25), 0 0 10px rgba(168,85,247,0.12);
+  }
+  .doctor-portrait-inner::after {
+    box-shadow: 0 0 32px rgba(245,197,66,0.10);
+  }
+}
+
+@media (max-width: 440px) {
+  .hero-blob { right: -6%; width: 140%; top: 8%; }
+  .hero-blob-figure { max-width: 360px; }
+  .hero-title { overflow-wrap: anywhere; }
+}
+
+/* Disable all animations for users with motion sensitivity */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile menu panel helper (smooth slide + premium look) */
+.mobile-menu-panel {
+  transition: transform 280ms cubic-bezier(.2,.9,.25,1), opacity 200ms ease;
+}
+
+/* ── Performance: CSS Containment ──────────────────────────────────────────
+   The hero section contains the canvas particle system and neon blur filter.
+   'contain: layout paint' prevents those effects from triggering repaints
+   in sections below the fold. */
+#home {
+  contain: layout paint;
+}
+
+/* content-visibility:auto skips layout/paint for off-screen sections.
+   The browser renders them on demand when they scroll into view.
+   This gives a significant FCP/LCP improvement on mobile. */
+#about,
+#dental-services,
+#skin-treatments,
+#gallery,
+#google-review,
+#appointment {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* Promote glass cards to their own compositor layer only on desktop.
+   On mobile this wastes GPU memory, so we skip it. */
+@media (min-width: 1024px) {
+  .glass {
+    transform: translateZ(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM ANIMATION KEYFRAMES
+   All transform + opacity only — zero layout cost, 60 FPS safe
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes float-y {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-8px); }
+}
+@keyframes float-y-sm {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-5px); }
+}
+@keyframes float-icon {
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  40%     { transform: translateY(-7px) rotate(1.5deg); }
+  70%     { transform: translateY(-3px) rotate(-0.8deg); }
+}
+@keyframes glow-pulse {
+  0%,100% { box-shadow: 0 0 0 1px rgba(245,197,66,0.18), 0 0 28px rgba(245,197,66,0.12), 0 8px 32px rgba(76,29,149,0.22); }
+  50%     { box-shadow: 0 0 0 1px rgba(245,197,66,0.34), 0 0 52px rgba(245,197,66,0.24), 0 8px 52px rgba(139,61,255,0.38); }
+}
+@keyframes icon-glow {
+  0%,100% { box-shadow: 0 0 0 1px rgba(245,197,66,0.20), 0 0 14px rgba(245,197,66,0.14); }
+  50%     { box-shadow: 0 0 0 1px rgba(245,197,66,0.48), 0 0 30px rgba(245,197,66,0.32); }
+}
+@keyframes shimmer {
+  0%   { transform: translateX(-110%) skewX(-18deg); }
+  100% { transform: translateX(220%)  skewX(-18deg); }
+}
+@keyframes twinkle {
+  0%,100% { opacity: 1;    transform: scale(1); }
+  50%     { opacity: 0.68; transform: scale(0.86); }
+}
+
+/* ── Floating icons ── */
+.icon-float {
+  animation: float-icon 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── Glowing icon box ── */
+.icon-glow-pulse {
+  animation: icon-glow 3.5s ease-in-out infinite;
+}
+
+/* ── Floating stat / achievement cards ── */
+.card-float {
+  animation: float-y 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── Floating hero badges ── */
+.badge-float {
+  animation: float-y-sm 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ── Twinkling stars ── */
+.star-twinkle { animation: twinkle 2.2s ease-in-out infinite; }
+
+/* ── Glow-pulsing card border ── */
+.glow-card {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* ── CTA shimmer ── */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
+  animation: shimmer 3.2s ease-in-out infinite;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* ── Stronger CTA glow ── */
+.btn-glow {
+  box-shadow:
+    0 4px 24px rgba(245,197,66,0.38),
+    0 0 52px rgba(245,197,66,0.18),
+    0 0 0 1px rgba(245,197,66,0.14);
+  transition: box-shadow 0.3s ease;
+}
+.btn-glow:hover {
+  box-shadow:
+    0 6px 36px rgba(245,197,66,0.58),
+    0 0 70px rgba(245,197,66,0.28),
+    0 0 0 1px rgba(245,197,66,0.26);
+}
+
+/* ── Card hover glow (hover-only, no loop) ── */
+.card-hover-glow {
+  transition: box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.card-hover-glow:hover {
+  box-shadow:
+    0 8px 40px rgba(139,61,255,0.26),
+    0 0 24px rgba(245,197,66,0.12),
+    0 0 0 1px rgba(245,197,66,0.22);
+}
+
+/* ── Mobile: smaller amplitude, slower cadence ── */
+@media (max-width: 768px) {
+  .icon-float  { animation-duration: 7s !important; }
+  .card-float  { animation-duration: 8s !important; }
+  .badge-float { animation-duration: 7s !important; }
+  .btn-shimmer::before { animation-duration: 4.5s !important; }
+}
+
+/* ── Respect reduced-motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .icon-float, .card-float, .badge-float,
+  .icon-glow-pulse, .glow-card, .star-twinkle { animation: none !important; }
+  .btn-shimmer::before { animation: none !important; }
+}
