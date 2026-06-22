@@ -79,7 +79,7 @@ export const Navbar = memo(() => {
                 </div>
                 <div className="hidden sm:block ml-2.5 transition-opacity group-hover:opacity-80">
                   <p className="font-display text-[15px] leading-[1.2] font-bold tracking-wide text-white">Savitri Dental Hospital</p>
-                  <p className="font-display text-[13px] leading-[1.3] font-semibold tracking-[0.01em] text-white/75">&amp; Maxillofacial Centre</p>
+                  <p className="font-display text-[15px] leading-[1.2] font-bold tracking-wide text-white">& Maxillofacial Centre</p>
                   <p className="text-[10px] uppercase tracking-[0.38em] text-white/50 mt-1">Luxury Healthcare</p>
                 </div>
               </a>

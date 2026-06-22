@@ -137,7 +137,7 @@ const RIGHT_CARDS = [
     label: 'Clinic Details',
     content: (
       <div className="mt-4 space-y-2 text-sm leading-7 text-white/70">
-        <p>66A/2C, Ward No 25, Stanley Road, Prayagraj 211002</p>
+        <p>Ward No-25, 66A/2C, Stanley Rd, near Mahboob Ali Inter College, Annpurna Vihar, Prayagraj, Uttar Pradesh 211002</p>
         <p>Phone: 9956967000</p>
         <p>Email:{' '}<a href="mailto:dentalsavitri@gmail.com" className="text-white/70 hover:text-gold transition-colors duration-200">dentalsavitri@gmail.com</a></p>
       </div>
