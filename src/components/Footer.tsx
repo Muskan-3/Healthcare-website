@@ -67,7 +67,7 @@ export const Footer = memo(() => {
             </div>
 
             {/* Tagline */}
-            <p className="text-sm leading-relaxed text-white/65 max-w-xs">
+            <p className="text-[15px] leading-relaxed text-white/70 max-w-xs">
               Savitri Dental Hospital &amp; Maxillofacial Centre — where clinical excellence meets luxury patient care.
             </p>
 
@@ -142,9 +142,9 @@ export const Footer = memo(() => {
                   {/* Subtle x-slide on hover via group + translate utility */}
                   <a
                     href={link.href}
-                    className="inline-flex items-center gap-1.5 text-sm text-white/65 hover:text-white hover:translate-x-1 transition-all duration-200 group"
+                    className="inline-flex items-center gap-1.5 text-[15px] text-white/70 hover:text-white hover:translate-x-1 transition-all duration-200 group"
                   >
-                    <span className="block w-1 h-1 rounded-full bg-[#F5C542]/50 group-hover:bg-[#F5C542] transition-colors duration-200" />
+                    <span className="block w-1.5 h-1.5 rounded-full bg-[#F5C542]/50 group-hover:bg-[#F5C542] transition-colors duration-200" />
                     {link.label}
                   </a>
                 </li>
@@ -157,16 +157,16 @@ export const Footer = memo(() => {
             <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-[#F5C542] mb-5">
               Get In Touch
             </h4>
-            <ul className="space-y-4 text-sm text-white/65">
+            <ul className="space-y-4 text-[15px] text-white/70">
               <li className="flex items-start gap-3">
-                <MapPin size={15} className="mt-0.5 flex-shrink-0 text-[#F5C542]/70" />
+                <MapPin size={16} className="mt-0.5 flex-shrink-0 text-[#F5C542]/70" />
                 <span>{clinicInfo.address}</span>
               </li>
               {clinicInfo.timings.map((t) => (
                 <li key={t.days} className="flex items-start gap-3">
-                  <Clock size={15} className="mt-0.5 flex-shrink-0 text-[#F5C542]/70" />
+                  <Clock size={16} className="mt-0.5 flex-shrink-0 text-[#F5C542]/70" />
                   <span>
-                    <span className="text-white/85 font-medium">{t.days}</span>
+                    <span className="text-white/90 font-medium">{t.days}</span>
                     {t.slots.map((s) => (
                       <span key={s} className="block">{s}</span>
                     ))}
@@ -174,7 +174,7 @@ export const Footer = memo(() => {
                 </li>
               ))}
               <li className="flex items-center gap-3">
-                <Phone size={15} className="flex-shrink-0 text-[#F5C542]/70" />
+                <Phone size={16} className="flex-shrink-0 text-[#F5C542]/70" />
                 <a
                   href={`tel:${clinicInfo.phoneRaw}`}
                   className="hover:text-white transition-colors duration-200"
@@ -183,7 +183,7 @@ export const Footer = memo(() => {
                 </a>
               </li>
               <li className="flex items-center gap-3">
-                <Mail size={15} className="flex-shrink-0 text-[#F5C542]/70" />
+                <Mail size={16} className="flex-shrink-0 text-[#F5C542]/70" />
                 <a
                   href={`mailto:${clinicInfo.email}`}
                   className="hover:text-white transition-colors duration-200 break-all"
@@ -210,11 +210,11 @@ export const Footer = memo(() => {
 
       {/* ── Bottom bar ── */}
       <div className="border-t border-white/8 bg-[#02000a]">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex flex-col items-center justify-between gap-2 md:flex-row">
-          <p className="text-xs text-white/45">
+        <div className="mx-auto max-w-7xl px-6 py-5 flex flex-col items-center justify-between gap-2 md:flex-row">
+          <p className="text-sm text-white/55">
             © {year} Savitri Dental Hospital &amp; Maxillofacial Centre. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <a
               href="/privacy-policy"
               onClick={(e) => {
@@ -222,11 +222,11 @@ export const Footer = memo(() => {
                 window.history.pushState(null, '', '/privacy-policy');
                 window.dispatchEvent(new PopStateEvent('popstate'));
               }}
-              className="text-xs text-white/35 hover:text-white/70 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]/50 rounded"
+              className="text-sm text-[#F5C542]/60 hover:text-[#F5C542] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]/50 rounded"
             >
               Privacy Policy
             </a>
-            <p className="text-xs text-white/35">
+            <p className="text-sm text-white/45">
               Crafted with care for clinical excellence.
             </p>
           </div>

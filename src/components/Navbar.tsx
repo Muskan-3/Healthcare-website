@@ -35,16 +35,38 @@ export const Navbar = memo(() => {
     if (!href.startsWith('#')) return;
     e.preventDefault();
     setOpen(false);
-  
+
     const id = href.slice(1);
     const el = document.getElementById(id);
     const header = document.querySelector('header');
     const offset = header ? header.clientHeight : 80;
+
     if (el) {
+      // Element exists in DOM — we're already on the home page, just scroll.
       const top = el.getBoundingClientRect().top + window.scrollY - offset + 8;
       window.scrollTo({ top, behavior: 'smooth' });
     } else {
-      window.location.href = href;
+      // Element not in DOM — we're on a different route (e.g. /privacy-policy).
+      // Navigate to home client-side first, then scroll to the anchor once
+      // React has re-rendered the home sections.
+      if (window.location.pathname !== '/') {
+        window.history.pushState(null, '', '/');
+        window.dispatchEvent(new PopStateEvent('popstate'));
+      }
+      // Allow two animation frames for React to commit the home page render,
+      // then attempt the scroll. Retry once with a short delay for lazy sections.
+      const tryScroll = (attempts: number) => {
+        const target = document.getElementById(id);
+        if (target) {
+          const hdr = document.querySelector('header');
+          const off = hdr ? hdr.clientHeight : 80;
+          const top = target.getBoundingClientRect().top + window.scrollY - off + 8;
+          window.scrollTo({ top, behavior: 'smooth' });
+        } else if (attempts > 0) {
+          setTimeout(() => tryScroll(attempts - 1), 80);
+        }
+      };
+      requestAnimationFrame(() => requestAnimationFrame(() => tryScroll(5)));
     }
   }, []);
 
