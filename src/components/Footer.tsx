@@ -214,9 +214,22 @@ export const Footer = memo(() => {
           <p className="text-xs text-white/45">
             © {year} Savitri Dental Hospital &amp; Maxillofacial Centre. All rights reserved.
           </p>
-          <p className="text-xs text-white/35">
-            Crafted with care for clinical excellence.
-          </p>
+          <div className="flex items-center gap-4">
+            <a
+              href="/privacy-policy"
+              onClick={(e) => {
+                e.preventDefault();
+                window.history.pushState(null, '', '/privacy-policy');
+                window.dispatchEvent(new PopStateEvent('popstate'));
+              }}
+              className="text-xs text-white/35 hover:text-white/70 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]/50 rounded"
+            >
+              Privacy Policy
+            </a>
+            <p className="text-xs text-white/35">
+              Crafted with care for clinical excellence.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
