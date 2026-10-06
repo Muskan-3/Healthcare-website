@@ -3,6 +3,7 @@ import { Navbar } from './components/Navbar';
 import { HeroSection } from './sections/HeroSection';
 import { AboutSection } from './sections/AboutSection';
 import { Footer } from './components/Footer';
+import { WhatsAppButton } from './components/WhatsAppButton';
 import { useRoute } from './hooks/useRoute';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 
@@ -62,7 +63,12 @@ const App = () => {
 
   // Render the privacy policy page at /privacy-policy
   if (path === '/privacy-policy') {
-    return <PrivacyPolicyPage />;
+    return (
+      <>
+        <PrivacyPolicyPage />
+        <WhatsAppButton />
+      </>
+    );
   }
 
   return (
@@ -123,6 +129,7 @@ const App = () => {
       </main>
 
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };

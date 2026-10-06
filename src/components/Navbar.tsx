@@ -1,7 +1,39 @@
 import React, { memo, useCallback, useEffect, useState } from 'react';
 import { Phone, CalendarDays, Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { navLinks } from '../data/siteData';
+
+// Mobile menu animation variants — children stagger in on open and out in reverse on close
+const backdropVariants: Variants = {
+  open: { opacity: 1, transition: { duration: 0.25, ease: 'easeOut' } },
+  closed: { opacity: 0, transition: { duration: 0.25, ease: 'easeIn', delay: 0.1 } },
+};
+
+const panelVariants: Variants = {
+  open: {
+    x: 0,
+    transition: { type: 'spring', damping: 28, stiffness: 260, when: 'beforeChildren' },
+  },
+  closed: {
+    x: '100%',
+    transition: { type: 'tween', duration: 0.28, ease: [0.4, 0, 1, 1], when: 'afterChildren' },
+  },
+};
+
+const listVariants: Variants = {
+  open: { transition: { staggerChildren: 0.05, delayChildren: 0.02 } },
+  closed: { transition: { staggerChildren: 0.03, staggerDirection: -1 } },
+};
+
+const itemVariants: Variants = {
+  open: { opacity: 1, x: 0, transition: { duration: 0.25, ease: 'easeOut' } },
+  closed: { opacity: 0, x: 24, transition: { duration: 0.15, ease: 'easeIn' } },
+};
+
+const closeButtonVariants: Variants = {
+  open: { opacity: 1, rotate: 0, scale: 1, transition: { duration: 0.25 } },
+  closed: { opacity: 0, rotate: -90, scale: 0.6, transition: { duration: 0.15 } },
+};
 
 export const Navbar = memo(() => {
   const [isSticky, setIsSticky] = useState(false);
@@ -162,7 +194,18 @@ export const Navbar = memo(() => {
               transition={{ type: 'spring', stiffness: 400, damping: 15 }}
               className="md:hidden relative z-[10000] inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#050214] border border-white/12 shadow-lg text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050214]"
             >
-              {open ? <X size={18} /> : <Menu size={18} />}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={open ? 'close' : 'menu'}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                  className="inline-flex"
+                >
+                  {open ? <X size={18} /> : <Menu size={18} />}
+                </motion.span>
+              </AnimatePresence>
             </motion.button>
           </div>
         </div>
@@ -172,42 +215,51 @@ export const Navbar = memo(() => {
       <AnimatePresence>
         {open && (
           // Entire full screen container acts as a close trigger if tapped anywhere
-          <div 
-            id="mobile-menu-panel" 
+          <motion.div
+            key="mobile-menu"
+            id="mobile-menu-panel"
             className="md:hidden fixed inset-0 z-[999]"
             onClick={() => setOpen(false)}
+            initial="closed"
+            animate="open"
+            exit="closed"
           >
             {/* Backdrop layer visual */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              variants={backdropVariants}
               className="absolute inset-0 bg-black/80 backdrop-blur-sm w-full h-full cursor-pointer"
             />
 
             {/* Right-side sliding panel */}
             <motion.aside
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 z-[1000] h-screen w-[85%] max-w-xs bg-[#050214] border-l border-white/10 shadow-2xl pt-32 px-6 pb-6 text-white cursor-default"
+              variants={panelVariants}
+              className="fixed top-0 right-0 z-[1000] h-screen h-[100dvh] overflow-y-auto w-[85%] max-w-xs bg-[#050214] border-l border-white/10 shadow-2xl pt-32 px-6 pb-6 text-white cursor-default"
               // Prevents immediate closing only when clicking directly on the structural background card space
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="h-full flex flex-col justify-between">
+              {/* Close button */}
+              <motion.button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setOpen(false)}
+                variants={closeButtonVariants}
+                whileHover={{ rotate: 90, scale: 1.05 }}
+                whileTap={{ scale: 0.9 }}
+                className="absolute top-8 right-5 inline-flex items-center justify-center w-11 h-11 rounded-full border border-white/12 bg-white/5 text-white hover:bg-white/10 hover:text-gold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
+              >
+                <X size={20} />
+              </motion.button>
+
+              <motion.div variants={listVariants} className="h-full flex flex-col justify-between">
                 {/* Navigation Links */}
                 <nav className="flex flex-col gap-2">
-                  {navLinks.map((item, idx) => (
+                  {navLinks.map((item) => (
                     <motion.a
                       key={item.label}
                       href={item.href}
                       onClick={(e) => scrollToAnchor(e, item.href)}
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + idx * 0.03 }}
-                      className="py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/5 transition-all duration-200 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 cursor-pointer"
+                      variants={itemVariants}
+                      className="py-3 px-3 rounded-lg text-white/90 hover:text-white hover:bg-white/5 transition-colors duration-200 text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 cursor-pointer"
                     >
                       {item.label}
                     </motion.a>
@@ -215,23 +267,18 @@ export const Navbar = memo(() => {
                 </nav>
 
                 {/* Bottom Call Action */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25 }}
-                  className="w-full pb-4"
-                >
-                  <a 
-                    href="tel:9956967000" 
+                <motion.div variants={itemVariants} className="w-full pb-4">
+                  <a
+                    href="tel:9956967000"
                     className="flex items-center justify-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-3.5 text-sm font-medium text-white hover:bg-gold/20 transition-all cursor-pointer"
                   >
                     <Phone size={16} className="text-gold" />
                     9956967000
                   </a>
                 </motion.div>
-              </div>
+              </motion.div>
             </motion.aside>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </header>
